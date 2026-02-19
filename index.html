@@ -1,19 +1,4 @@
-
-                        <!DOCTYPE html>
-                        <html lang="en">
-                        <head>
-                            <meta charset="UTF-8">
-                            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <style>
-                body {
-                  background-color: white; /* Ensure the iframe has a white background */
-                }
-
-                
-              </style>
-                        </head>
-                        <body>
-                            <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
@@ -32,169 +17,14 @@
     <link rel="icon" type="image/png" sizes="192x192" href="assets/icons/icon-192.png">
     <link rel="apple-touch-icon" href="assets/icons/icon-192.png">
     
+    <!-- External Libraries -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
-        
-        * { box-sizing: border-box; }
-        
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
-            color: #e2e8f0;
-            min-height: 100vh;
-        }
-
-        .glass-panel {
-            background: rgba(30, 41, 59, 0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .glass-card {
-            background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .phase-1 { border-left-color: #22c55e; }
-        .phase-2 { border-left-color: #3b82f6; }
-        .phase-3 { border-left-color: #ef4444; }
-
-        .nav-item.active {
-            background: rgba(34, 197, 94, 0.2);
-            color: #22c55e;
-            border-left: 3px solid #22c55e;
-        }
-
-        .nav-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .streak-fire {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.8; transform: scale(1.1); }
-        }
-
-        .badge {
-            animation: bounce 0.5s ease;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-5px); }
-        }
-
-        .progress-ring__circle {
-            transition: stroke-dashoffset 0.5s ease;
-            transform: rotate(-90deg);
-            transform-origin: 50% 50%;
-        }
-
-        .schedule-item {
-            transition: all 0.3s ease;
-        }
-
-        .schedule-item:hover {
-            transform: translateX(5px);
-        }
-
-        .schedule-item.active {
-            background: rgba(34, 197, 94, 0.2);
-            border-left: 3px solid #22c55e;
-        }
-
-        .schedule-item.missed {
-            opacity: 0.5;
-        }
-
-        ::-webkit-scrollbar { width: 6px; height: 6px; }
-        ::-webkit-scrollbar-track { background: #1e293b; }
-        ::-webkit-scrollbar-thumb { background: #475569; border-radius: 3px; }
-        ::-webkit-scrollbar-thumb:hover { background: #64748b; }
-
-        .toggle-checkbox:checked + .toggle-label {
-            background-color: #22c55e;
-        }
-
-        .heatmap-day {
-            width: 12px;
-            height: 12px;
-            border-radius: 2px;
-        }
-
-        .heatmap-0 { background: #1e293b; }
-        .heatmap-1 { background: #166534; }
-        .heatmap-2 { background: #15803d; }
-        .heatmap-3 { background: #16a34a; }
-        .heatmap-4 { background: #22c55e; }
-
-        .modal-overlay {
-            background: rgba(0, 0, 0, 0.8);
-            backdrop-filter: blur(4px);
-        }
-
-        input[type="range"] {
-            -webkit-appearance: none;
-            appearance: none;
-            background: #334155;
-            height: 6px;
-            border-radius: 3px;
-        }
-
-        input[type="range"]::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 18px;
-            height: 18px;
-            background: #22c55e;
-            border-radius: 50%;
-            cursor: pointer;
-        }
-
-        @media (max-width: 768px) {
-            .sidebar {
-                position: fixed;
-                left: -100%;
-                top: 0;
-                height: 100vh;
-                width: 280px;
-                transition: left 0.3s ease;
-                z-index: 100;
-            }
-            .sidebar.open {
-                left: 0;
-            }
-            .main-content {
-                margin-left: 0 !important;
-            }
-        }
-
-        /* PWA Install Banner */
-        #installBanner {
-            display: none;
-            position: fixed;
-            bottom: 80px;
-            left: 50%;
-            transform: translateX(-50%);
-            z-index: 1000;
-            width: 90%;
-            max-width: 400px;
-        }
-
-        /* Safe area for mobile */
-        .pb-safe {
-            padding-bottom: env(safe-area-inset-bottom);
-        }
-    </style>
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body class="flex">
 
@@ -278,225 +108,85 @@
         </div>
     </aside>
 
-    <!-- Mobile Menu Button -->
-    <button onclick="toggleSidebar()" class="md:hidden fixed top-4 left-4 z-50 glass-panel p-3 rounded-lg">
-        <i class="fa-solid fa-bars text-white"></i>
-    </button>
-
     <!-- Main Content -->
-    <main class="main-content flex-1 ml-64 min-h-screen">
-        <!-- Top Bar -->
-        <header class="glass-panel border-b border-slate-700 p-4 sticky top-0 z-40">
-            <div class="flex justify-between items-center">
-                <div>
-                    <h2 id="pageTitle" class="text-xl font-bold text-white">Dashboard</h2>
-                    <p id="pageSubtitle" class="text-sm text-slate-400">Vue d'ensemble</p>
+    <main class="main-content flex-1 md:ml-64 min-h-screen p-4 md:p-8">
+        <!-- Header -->
+        <header class="flex justify-between items-center mb-8">
+            <button onclick="toggleSidebar()" class="md:hidden p-2 text-slate-300">
+                <i class="fa-solid fa-bars text-xl"></i>
+            </button>
+            <div>
+                <h2 id="sectionTitle" class="text-2xl font-bold text-white">Dashboard</h2>
+                <p id="currentDate" class="text-sm text-slate-400"></p>
+            </div>
+            <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2 glass-card px-3 py-1.5 rounded-full">
+                    <i class="fa-solid fa-fire text-orange-500 streak-fire"></i>
+                    <span id="streakCount" class="font-bold text-white">0</span>
                 </div>
-                <div class="flex items-center gap-4">
-                    <div class="text-right hidden sm:block">
-                        <div class="text-sm font-semibold text-white">Jour <span id="currentDay">1</span>/90</div>
-                        <div id="phaseBadge" class="text-xs px-2 py-0.5 rounded-full bg-green-900/50 text-green-400 inline-block">Phase 1</div>
-                    </div>
-                    <div class="relative">
-                        <button onclick="toggleNotifications()" class="glass-panel p-2 rounded-lg hover:bg-slate-700 transition">
-                            <i class="fa-solid fa-bell text-slate-300"></i>
-                            <span id="notifBadge" class="absolute -top-1 -right-1 w-4 h-4 bg-red-500 rounded-full text-[10px] flex items-center justify-center text-white hidden">0</span>
-                        </button>
-                    </div>
-                </div>
+                <button onclick="toggleNotifications()" class="relative p-2 text-slate-300 hover:text-white">
+                    <i class="fa-solid fa-bell"></i>
+                    <span id="notifBadge" class="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full hidden"></span>
+                </button>
             </div>
         </header>
 
-        <!-- Content Sections -->
-        <div class="p-6 space-y-6 pb-24">
-
+        <div id="contentArea">
             <!-- DASHBOARD SECTION -->
             <section id="dashboardSection" class="section">
-                <!-- Key Metrics -->
-                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-                    <div class="glass-panel rounded-2xl p-4">
-                        <div class="flex items-center gap-3 mb-2">
-                            <div class="w-10 h-10 rounded-xl bg-green-500/20 flex items-center justify-center">
-                                <i class="fa-solid fa-fire streak-fire text-green-400"></i>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                    <!-- Progress Card -->
+                    <div class="glass-panel rounded-2xl p-6 flex flex-col items-center justify-center text-center">
+                        <div class="relative w-32 h-32 mb-4">
+                            <svg class="w-full h-full" viewBox="0 0 100 100">
+                                <circle class="text-slate-700 stroke-current" stroke-width="8" fill="transparent" r="40" cx="50" cy="50"/>
+                                <circle id="mainProgressCircle" class="text-green-500 stroke-current progress-ring__circle" stroke-width="8" stroke-linecap="round" fill="transparent" r="40" cx="50" cy="50" stroke-dasharray="251.2" stroke-dashoffset="251.2"/>
+                            </svg>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                <span id="progressPercent" class="text-2xl font-bold text-white">0%</span>
+                                <span class="text-[10px] text-slate-400 uppercase">Progression</span>
+                            </div>
+                        </div>
+                        <p class="text-sm text-slate-300">Jour <span id="dayDisplay">1</span> sur 90</p>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="md:col-span-2 grid grid-cols-2 gap-4">
+                        <div class="glass-panel rounded-2xl p-4 flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-blue-500/20 flex items-center justify-center text-blue-400">
+                                <i class="fa-solid fa-stopwatch text-xl"></i>
                             </div>
                             <div>
-                                <p class="text-xs text-slate-400">Streak</p>
-                                <p id="streakCount" class="text-2xl font-bold text-white">0</p>
+                                <p class="text-xs text-slate-400 uppercase">Focus Total</p>
+                                <p id="totalFocusTime" class="text-xl font-bold text-white">0 min</p>
                             </div>
                         </div>
-                        <p class="text-xs text-green-400">jours consécutifs</p>
-                    </div>
-
-                    <div class="glass-panel rounded-2xl p-4">
-                        <div class="flex items-center gap-3 mb-2">
-                            <div class="w-10 h-10 rounded-xl bg-blue-500/20 flex items-center justify-center">
-                                <i class="fa-solid fa-percent text-blue-400"></i>
+                        <div class="glass-panel rounded-2xl p-4 flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-purple-400">
+                                <i class="fa-solid fa-bullseye text-xl"></i>
                             </div>
                             <div>
-                                <p class="text-xs text-slate-400">Progression</p>
-                                <p id="progressPercent" class="text-2xl font-bold text-white">0%</p>
+                                <p class="text-xs text-slate-400 uppercase">Objectifs</p>
+                                <p id="completedGoalsCount" class="text-xl font-bold text-white">0</p>
                             </div>
                         </div>
-                        <div class="w-full bg-slate-700 rounded-full h-1.5 mt-2">
-                            <div id="progressBar" class="bg-blue-500 h-1.5 rounded-full transition-all" style="width: 0%"></div>
-                        </div>
-                    </div>
-
-                    <div class="glass-panel rounded-2xl p-4">
-                        <div class="flex items-center gap-3 mb-2">
-                            <div class="w-10 h-10 rounded-xl bg-purple-500/20 flex items-center justify-center">
-                                <i class="fa-solid fa-clock text-purple-400"></i>
+                        <div class="glass-panel rounded-2xl p-4 flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-orange-500/20 flex items-center justify-center text-orange-400">
+                                <i class="fa-solid fa-medal text-xl"></i>
                             </div>
                             <div>
-                                <p class="text-xs text-slate-400">Temps aujourd'hui</p>
-                                <p id="todayMinutes" class="text-2xl font-bold text-white">0</p>
+                                <p class="text-xs text-slate-400 uppercase">Badges</p>
+                                <p id="badgesCount" class="text-xl font-bold text-white">0</p>
                             </div>
                         </div>
-                        <p class="text-xs text-slate-400">minutes</p>
-                    </div>
-
-                    <div class="glass-panel rounded-2xl p-4">
-                        <div class="flex items-center gap-3 mb-2">
-                            <div class="w-10 h-10 rounded-xl bg-yellow-500/20 flex items-center justify-center">
-                                <i class="fa-solid fa-star text-yellow-400"></i>
+                        <div class="glass-panel rounded-2xl p-4 flex items-center gap-4">
+                            <div class="w-12 h-12 rounded-xl bg-green-500/20 flex items-center justify-center text-green-400">
+                                <i class="fa-solid fa-chart-simple text-xl"></i>
                             </div>
                             <div>
-                                <p class="text-xs text-slate-400">Score Discipline</p>
-                                <p id="disciplineScore" class="text-2xl font-bold text-white">0/10</p>
+                                <p class="text-xs text-slate-400 uppercase">Discipline</p>
+                                <p id="disciplineScore" class="text-xl font-bold text-white">0/10</p>
                             </div>
-                        </div>
-                        <p class="text-xs text-slate-400">cette semaine</p>
-                    </div>
-                </div>
-
-                <!-- Main Dashboard Grid -->
-                <div class="grid md:grid-cols-3 gap-6">
-                    <!-- Today's Status -->
-                    <div class="md:col-span-2 glass-panel rounded-2xl p-6">
-                        <h3 class="text-lg font-bold mb-4 flex items-center gap-2">
-                            <i class="fa-solid fa-calendar-check text-green-400"></i>
-                            Aujourd'hui
-                        </h3>
-                        
-                        <div class="space-y-4">
-                            <div onclick="toggleDailyTask('morning')" id="taskMorning" class="schedule-item cursor-pointer p-4 glass-card rounded-xl border-l-4 border-yellow-500">
-                                <div class="flex justify-between items-center">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-full bg-yellow-500/20 flex items-center justify-center">
-                                            <i class="fa-regular fa-sun text-yellow-400"></i>
-                                        </div>
-                                        <div>
-                                            <p class="font-semibold text-white">Micro-travail Matin</p>
-                                            <p class="text-xs text-slate-400">7h00 – 7h25 (25 min)</p>
-                                        </div>
-                                    </div>
-                                    <i id="iconMorning" class="fa-regular fa-circle text-2xl text-slate-600"></i>
-                                </div>
-                            </div>
-
-                            <div onclick="toggleDailyTask('classes')" id="taskClasses" class="schedule-item cursor-pointer p-4 glass-card rounded-xl border-l-4 border-blue-500">
-                                <div class="flex justify-between items-center">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-full bg-blue-500/20 flex items-center justify-center">
-                                            <i class="fa-solid fa-graduation-cap text-blue-400"></i>
-                                        </div>
-                                        <div>
-                                            <p class="font-semibold text-white">Cours</p>
-                                            <p class="text-xs text-slate-400">8h00 – 13h00</p>
-                                        </div>
-                                    </div>
-                                    <i id="iconClasses" class="fa-regular fa-circle text-2xl text-slate-600"></i>
-                                </div>
-                            </div>
-
-                            <div onclick="toggleDailyTask('evening')" id="taskEvening" class="schedule-item cursor-pointer p-4 glass-card rounded-xl border-l-4 border-green-500">
-                                <div class="flex justify-between items-center">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-full bg-green-500/20 flex items-center justify-center">
-                                            <i class="fa-solid fa-flask text-green-400"></i>
-                                        </div>
-                                        <div>
-                                            <p class="font-semibold text-white">Pharmacie (60 min)</p>
-                                            <p class="text-xs text-slate-400">18h30 – 19h30</p>
-                                        </div>
-                                    </div>
-                                    <i id="iconEvening" class="fa-regular fa-circle text-2xl text-slate-600"></i>
-                                </div>
-                            </div>
-
-                            <div onclick="toggleDailyTask('bonus')" id="taskBonus" class="schedule-item cursor-pointer p-4 glass-card rounded-xl border-l-4 border-purple-500">
-                                <div class="flex justify-between items-center">
-                                    <div class="flex items-center gap-3">
-                                        <div class="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center">
-                                            <i class="fa-solid fa-plus text-purple-400"></i>
-                                        </div>
-                                        <div>
-                                            <p class="font-semibold text-white">Bonus</p>
-                                            <p class="text-xs text-slate-400">19h30 – 20h00 (30 min)</p>
-                                        </div>
-                                    </div>
-                                    <i id="iconBonus" class="fa-regular fa-circle text-2xl text-slate-600"></i>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Quick Stats -->
-                        <div class="mt-6 grid grid-cols-2 gap-4">
-                            <div class="glass-card rounded-xl p-4">
-                                <p class="text-xs text-slate-400 mb-1">Focus (1-5)</p>
-                                <div class="flex gap-1">
-                                    <input type="range" id="focusSlider" min="1" max="5" value="3" class="w-full" onchange="updateFocus(this.value)">
-                                </div>
-                                <p id="focusValue" class="text-center text-sm font-bold mt-1">3/5</p>
-                            </div>
-                            <div class="glass-card rounded-xl p-4">
-                                <p class="text-xs text-slate-400 mb-1">Téléphone respecté ?</p>
-                                <label class="relative inline-flex items-center cursor-pointer justify-center w-full">
-                                    <input type="checkbox" id="phoneCheck" class="sr-only peer" onchange="saveDailyData()">
-                                    <div class="w-12 h-6 bg-slate-700 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Phase Info -->
-                    <div class="glass-panel rounded-2xl p-6">
-                        <h3 class="text-lg font-bold mb-4">Phase Actuelle</h3>
-                        
-                        <div id="phaseCard" class="p-4 rounded-xl border-l-4 phase-1 bg-slate-800/50 mb-4">
-                            <h4 id="phaseName" class="font-bold text-green-400">Phase 1: Réactivation</h4>
-                            <p id="phaseDesc" class="text-sm text-slate-400 mt-1">Reprendre l'habitude. Régularité > performance.</p>
-                            <div class="mt-3 flex items-center gap-2">
-                                <div class="flex-1 bg-slate-700 rounded-full h-2">
-                                    <div id="phaseProgress" class="bg-green-500 h-2 rounded-full" style="width: 33%"></div>
-                                </div>
-                                <span class="text-xs text-slate-400">33%</span>
-                            </div>
-                        </div>
-
-                        <!-- Phase Objectives -->
-                        <div class="space-y-2">
-                            <p class="text-xs font-semibold text-slate-400 uppercase">Objectifs de phase</p>
-                            <div id="phaseObjectives" class="space-y-2">
-                                <div class="flex items-center gap-2 text-sm">
-                                    <i class="fa-solid fa-check text-green-400"></i>
-                                    <span>25 séances minimum</span>
-                                </div>
-                                <div class="flex items-center gap-2 text-sm">
-                                    <i class="fa-solid fa-check text-green-400"></i>
-                                    <span>Relire tous les cours</span>
-                                </div>
-                                <div class="flex items-center gap-2 text-sm">
-                                    <i class="fa-solid fa-check text-green-400"></i>
-                                    <span>Faire fiches</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Days Remaining -->
-                        <div class="mt-6 glass-card rounded-xl p-4 text-center">
-                            <p class="text-3xl font-bold text-white" id="daysRemaining">89</p>
-                            <p class="text-xs text-slate-400">jours restants</p>
                         </div>
                     </div>
                 </div>
@@ -624,53 +314,53 @@
                         
                         <div class="space-y-4">
                             <div>
-                                <label class="block text-sm text-slate-400 mb-2">Date</label>
-                                <input type="date" id="journalDate" class="w-full glass-card rounded-xl p-3 text-white border border-slate-700 focus:border-green-500 focus:outline-none">
+                                <label class="block text-xs text-slate-400 uppercase mb-1">Date</label>
+                                <input type="date" id="journalDate" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-green-500">
+                            </div>
+                            
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="glass-card p-3 rounded-xl">
+                                    <p class="text-xs text-slate-400 mb-2">Session Matin</p>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="morningSession" class="w-4 h-4 rounded border-slate-700 bg-slate-800 text-green-500 focus:ring-green-500">
+                                        <span class="text-sm text-white">Complétée</span>
+                                    </label>
+                                </div>
+                                <div class="glass-card p-3 rounded-xl">
+                                    <p class="text-xs text-slate-400 mb-2">Session Soir</p>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" id="eveningSession" class="w-4 h-4 rounded border-slate-700 bg-slate-800 text-green-500 focus:ring-green-500">
+                                        <span class="text-sm text-white">Complétée</span>
+                                    </label>
+                                </div>
                             </div>
 
                             <div>
-                                <label class="block text-sm text-slate-400 mb-2">Durée réelle (minutes)</label>
-                                <input type="number" id="journalDuration" placeholder="ex: 90" class="w-full glass-card rounded-xl p-3 text-white border border-slate-700 focus:border-green-500 focus:outline-none">
+                                <label class="block text-xs text-slate-400 uppercase mb-1">Focus & Discipline (1-5)</label>
+                                <input type="range" id="focusSlider" min="1" max="5" value="3" class="w-full">
+                                <div class="flex justify-between text-[10px] text-slate-500 mt-1">
+                                    <span>Faible</span>
+                                    <span id="focusValue" class="text-green-400 font-bold">3/5</span>
+                                    <span>Élite</span>
+                                </div>
                             </div>
 
                             <div>
-                                <label class="block text-sm text-slate-400 mb-2">Niveau de Focus (1-5)</label>
-                                <input type="range" id="journalFocus" min="1" max="5" value="3" class="w-full" oninput="document.getElementById('journalFocusValue').innerText = this.value + '/5'">
-                                <p id="journalFocusValue" class="text-center text-sm font-bold mt-1">3/5</p>
+                                <label class="block text-xs text-slate-400 uppercase mb-1">Notes & Réalisations</label>
+                                <textarea id="journalNotes" rows="3" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-green-500" placeholder="Qu'avez-vous accompli aujourd'hui ?"></textarea>
                             </div>
 
-                            <div class="flex items-center justify-between p-3 glass-card rounded-xl">
-                                <span class="text-sm">Téléphone respecté ?</span>
-                                <label class="relative inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" id="journalPhone" class="sr-only peer">
-                                    <div class="w-11 h-6 bg-slate-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
-                                </label>
-                            </div>
-
-                            <div class="flex items-center justify-between p-3 glass-card rounded-xl">
-                                <span class="text-sm">Distraction aujourd'hui ?</span>
-                                <label class="relative inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" id="journalDistraction" class="sr-only peer">
-                                    <div class="w-11 h-6 bg-slate-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-red-500"></div>
-                                </label>
-                            </div>
-
-                            <div>
-                                <label class="block text-sm text-slate-400 mb-2">Notes personnelles</label>
-                                <textarea id="journalNotes" rows="4" placeholder="Réflexions, difficultés, réussites..." class="w-full glass-card rounded-xl p-3 text-white border border-slate-700 focus:border-green-500 focus:outline-none resize-none"></textarea>
-                            </div>
-
-                            <button onclick="saveJournalEntry()" class="w-full py-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl font-semibold hover:opacity-90 transition">
-                                <i class="fa-solid fa-save mr-2"></i>Enregistrer
+                            <button onclick="saveJournalEntry()" class="w-full py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl transition shadow-lg shadow-green-500/20">
+                                Enregistrer la journée
                             </button>
                         </div>
                     </div>
 
-                    <!-- History List -->
+                    <!-- History -->
                     <div class="glass-panel rounded-2xl p-6">
-                        <h3 class="text-lg font-bold mb-4">Historique des Entrées</h3>
-                        <div id="journalHistory" class="space-y-3 max-h-96 overflow-y-auto">
-                            <!-- Entries will be loaded here -->
+                        <h3 class="text-lg font-bold mb-4">Historique Récent</h3>
+                        <div id="journalHistory" class="space-y-3 max-h-[400px] overflow-y-auto pr-2">
+                            <!-- History items loaded here -->
                         </div>
                     </div>
                 </div>
@@ -678,74 +368,50 @@
 
             <!-- GOALS SECTION -->
             <section id="goalsSection" class="section hidden">
-                <!-- Add Goal Form -->
                 <div class="glass-panel rounded-2xl p-6 mb-6">
-                    <h3 class="text-lg font-bold mb-4">Nouvel Objectif / Livrable</h3>
-                    <div class="grid md:grid-cols-4 gap-4">
-                        <input type="text" id="goalTitle" placeholder="Titre" class="glass-card rounded-xl p-3 text-white border border-slate-700 focus:border-green-500 focus:outline-none md:col-span-2">
-                        <select id="goalType" class="glass-card rounded-xl p-3 text-white border border-slate-700 focus:border-green-500 focus:outline-none">
-                            <option value="synthese">📄 Synthèse</option>
-                            <option value="projet">📊 Mini-projet</option>
-                            <option value="revue">📚 Revue</option>
-                            <option value="etude">🧪 Étude</option>
-                        </select>
-                        <input type="date" id="goalDeadline" class="glass-card rounded-xl p-3 text-white border border-slate-700 focus:border-green-500 focus:outline-none">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-bold">Objectifs du Challenge</h3>
+                        <button onclick="showAddGoalModal()" class="px-4 py-2 bg-green-500/20 text-green-400 rounded-lg text-sm font-bold hover:bg-green-500/30 transition">
+                            + Nouvel Objectif
+                        </button>
                     </div>
-                    <textarea id="goalDesc" placeholder="Description..." class="w-full glass-card rounded-xl p-3 text-white border border-slate-700 focus:border-green-500 focus:outline-none mt-4 resize-none" rows="2"></textarea>
-                    <button onclick="addGoal()" class="mt-4 px-6 py-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl font-semibold hover:opacity-90 transition">
-                        <i class="fa-solid fa-plus mr-2"></i>Ajouter l'objectif
-                    </button>
+
+                    <div id="goalsGrid" class="grid md:grid-cols-2 gap-4">
+                        <!-- Goals loaded here -->
+                    </div>
                 </div>
 
-                <!-- Goals Grid -->
-                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-4" id="goalsGrid">
-                    <!-- Goals will be loaded here -->
-                </div>
-
-                <!-- Challenge Requirements -->
-                <div class="glass-panel rounded-2xl p-6 mt-6">
-                    <h3 class="text-lg font-bold mb-4">🎯 Objectifs des 90 Jours</h3>
-                    <div class="grid md:grid-cols-2 gap-4">
-                        <div class="glass-card rounded-xl p-4 flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center">
-                                <i class="fa-solid fa-file-lines text-green-400 text-xl"></i>
-                            </div>
+                <div class="glass-panel rounded-2xl p-6">
+                    <h3 class="text-lg font-bold mb-4">Pré-requis de Réussite</h3>
+                    <div class="space-y-3">
+                        <label class="flex items-center gap-3 p-4 glass-card rounded-xl cursor-pointer">
+                            <input type="checkbox" id="req1" onchange="updateRequirements()" class="w-5 h-5 rounded border-slate-700 bg-slate-800 text-green-500">
                             <div>
-                                <p class="font-semibold">3 dossiers de synthèse</p>
-                                <p class="text-xs text-slate-400">Complets et validés</p>
+                                <p class="font-semibold text-white">Environnement de travail dédié</p>
+                                <p class="text-xs text-slate-400">Bureau propre, calme, sans distractions</p>
                             </div>
-                            <input type="checkbox" id="req1" class="w-5 h-5 rounded border-slate-600 text-green-500 focus:ring-green-500" onchange="updateRequirements()">
-                        </div>
-                        <div class="glass-card rounded-xl p-4 flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-blue-500/20 flex items-center justify-center">
-                                <i class="fa-solid fa-flask text-blue-400 text-xl"></i>
-                            </div>
+                        </label>
+                        <label class="flex items-center gap-3 p-4 glass-card rounded-xl cursor-pointer">
+                            <input type="checkbox" id="req2" onchange="updateRequirements()" class="w-5 h-5 rounded border-slate-700 bg-slate-800 text-green-500">
                             <div>
-                                <p class="font-semibold">1 mini-projet scientifique</p>
-                                <p class="text-xs text-slate-400">Revue / analyse / étude</p>
+                                <p class="font-semibold text-white">Sommeil optimisé (7h-8h)</p>
+                                <p class="text-xs text-slate-400">Coucher avant 23h, réveil constant</p>
                             </div>
-                            <input type="checkbox" id="req2" class="w-5 h-5 rounded border-slate-600 text-green-500 focus:ring-green-500" onchange="updateRequirements()">
-                        </div>
-                        <div class="glass-card rounded-xl p-4 flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-purple-500/20 flex items-center justify-center">
-                                <i class="fa-solid fa-chart-line text-purple-400 text-xl"></i>
-                            </div>
+                        </label>
+                        <label class="flex items-center gap-3 p-4 glass-card rounded-xl cursor-pointer">
+                            <input type="checkbox" id="req3" onchange="updateRequirements()" class="w-5 h-5 rounded border-slate-700 bg-slate-800 text-green-500">
                             <div>
-                                <p class="font-semibold">Notes ≥ moyenne +20%</p>
-                                <p class="text-xs text-slate-400">Excellence académique</p>
+                                <p class="font-semibold text-white">Zéro distraction numérique</p>
+                                <p class="text-xs text-slate-400">Mode avion pendant les sessions focus</p>
                             </div>
-                            <input type="checkbox" id="req3" class="w-5 h-5 rounded border-slate-600 text-green-500 focus:ring-green-500" onchange="updateRequirements()">
-                        </div>
-                        <div class="glass-card rounded-xl p-4 flex items-center gap-3">
-                            <div class="w-12 h-12 rounded-full bg-yellow-500/20 flex items-center justify-center">
-                                <i class="fa-solid fa-repeat text-yellow-400 text-xl"></i>
-                            </div>
+                        </label>
+                        <label class="flex items-center gap-3 p-4 glass-card rounded-xl cursor-pointer">
+                            <input type="checkbox" id="req4" onchange="updateRequirements()" class="w-5 h-5 rounded border-slate-700 bg-slate-800 text-green-500">
                             <div>
-                                <p class="font-semibold">Routine stable</p>
-                                <p class="text-xs text-slate-400">Sans forcer, automatique</p>
+                                <p class="font-semibold text-white">Matériel prêt à l'avance</p>
+                                <p class="text-xs text-slate-400">Cours, fiches, stylos, ordinateur chargé</p>
                             </div>
-                            <input type="checkbox" id="req4" class="w-5 h-5 rounded border-slate-600 text-green-500 focus:ring-green-500" onchange="updateRequirements()">
-                        </div>
+                        </label>
                     </div>
                 </div>
             </section>
@@ -753,249 +419,168 @@
             <!-- STATS SECTION -->
             <section id="statsSection" class="section hidden">
                 <div class="grid md:grid-cols-2 gap-6">
-                    <!-- Main Stats Chart -->
-                    <div class="glass-panel rounded-2xl p-6">
-                        <h3 class="text-lg font-bold mb-4">Évolution Discipline</h3>
-                        <div class="h-64">
-                            <canvas id="disciplineChart"></canvas>
-                        </div>
-                    </div>
-
-                    <!-- Time Distribution -->
                     <div class="glass-panel rounded-2xl p-6">
                         <h3 class="text-lg font-bold mb-4">Répartition du Temps</h3>
                         <div class="h-64">
                             <canvas id="timeChart"></canvas>
                         </div>
                     </div>
-
-                    <!-- Key Metrics -->
-                    <div class="glass-panel rounded-2xl p-6 md:col-span-2">
-                        <h3 class="text-lg font-bold mb-4">Indicateurs de Performance</h3>
-                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div class="glass-card rounded-xl p-4 text-center">
-                                <p class="text-3xl font-bold text-green-400" id="statSuccessRate">0%</p>
-                                <p class="text-xs text-slate-400 mt-1">Taux de réussite</p>
-                            </div>
-                            <div class="glass-card rounded-xl p-4 text-center">
-                                <p class="text-3xl font-bold text-blue-400" id="statAvgMinutes">0</p>
-                                <p class="text-xs text-slate-400 mt-1">Moyenne min/jour</p>
-                            </div>
-                            <div class="glass-card rounded-xl p-4 text-center">
-                                <p class="text-3xl font-bold text-red-400" id="statMissedDays">0</p>
-                                <p class="text-xs text-slate-400 mt-1">Jours manqués</p>
-                            </div>
-                            <div class="glass-card rounded-xl p-4 text-center">
-                                <p class="text-3xl font-bold text-yellow-400" id="statDistractionRate">0%</p>
-                                <p class="text-xs text-slate-400 mt-1">Taux distraction</p>
-                            </div>
+                    <div class="glass-panel rounded-2xl p-6">
+                        <h3 class="text-lg font-bold mb-4">Évolution Discipline</h3>
+                        <div class="h-64">
+                            <canvas id="disciplineChart"></canvas>
                         </div>
                     </div>
+                </div>
 
-                    <!-- Weekly Report Button -->
-                    <div class="glass-panel rounded-2xl p-6 md:col-span-2">
-                        <h3 class="text-lg font-bold mb-4">Rapport Hebdomadaire</h3>
-                        <p class="text-sm text-slate-400 mb-4">Générez un rapport PDF de votre performance chaque dimanche pour auto-évaluation.</p>
-                        <button onclick="generateWeeklyReport()" class="px-6 py-3 bg-gradient-to-r from-blue-500 to-indigo-600 rounded-xl font-semibold hover:opacity-90 transition">
-                            <i class="fa-solid fa-file-pdf mr-2"></i>Générer Rapport PDF
+                <div class="glass-panel rounded-2xl p-6 mt-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-bold">Évaluation Hebdomadaire</h3>
+                        <button onclick="generateWeeklyReport()" class="px-4 py-2 bg-blue-500/20 text-blue-400 rounded-lg text-sm font-bold hover:bg-blue-500/30 transition">
+                            <i class="fa-solid fa-file-pdf mr-2"></i>Exporter PDF
                         </button>
+                    </div>
+                    
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs text-slate-400 uppercase mb-1">Respect 60min/jour (1-10)</label>
+                                <input type="number" id="eval1" min="0" max="10" value="0" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-400 uppercase mb-1">Qualité Production (1-10)</label>
+                                <input type="number" id="eval2" min="0" max="10" value="0" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-400 uppercase mb-1">Sentiment Progression (1-10)</label>
+                                <input type="number" id="eval3" min="0" max="10" value="0" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white">
+                            </div>
+                            <button onclick="saveWeeklyEvaluation()" class="w-full py-2 bg-blue-500 text-white font-bold rounded-lg">Valider la semaine</button>
+                        </div>
+                        
+                        <div class="md:col-span-2 glass-card rounded-xl p-6 flex flex-col items-center justify-center">
+                            <p class="text-sm text-slate-400 mb-2">Score Global Semaine</p>
+                            <p id="totalScore" class="text-5xl font-black text-white">0/30</p>
+                            <p id="evalFeedback" class="text-sm mt-4 text-slate-400 text-center italic">"L'excellence est une habitude, pas un acte."</p>
+                        </div>
                     </div>
                 </div>
             </section>
 
             <!-- REWARDS SECTION -->
             <section id="rewardsSection" class="section hidden">
-                <!-- Level Progress -->
-                <div class="glass-panel rounded-2xl p-6 mb-6">
-                    <div class="flex items-center justify-between mb-4">
-                        <h3 class="text-lg font-bold">Progression de Niveau</h3>
-                        <span class="text-2xl font-bold text-green-400">Niveau <span id="rewardLevel">1</span></span>
-                    </div>
-                    <div class="w-full bg-slate-700 rounded-full h-4 mb-2">
-                        <div id="rewardXpBar" class="bg-gradient-to-r from-yellow-500 to-orange-500 h-4 rounded-full transition-all" style="width: 0%"></div>
-                    </div>
-                    <p class="text-sm text-slate-400"><span id="currentXp">0</span> / <span id="maxXp">100</span> XP pour le niveau suivant</p>
-                </div>
-
-                <!-- Badges Grid -->
-                <div class="glass-panel rounded-2xl p-6 mb-6">
-                    <h3 class="text-lg font-bold mb-4">🏆 Badges Débloqués</h3>
-                    <div id="badgesGrid" class="grid grid-cols-3 md:grid-cols-6 gap-4">
-                        <!-- Badges will be loaded here -->
+                <div class="glass-panel rounded-2xl p-6">
+                    <h3 class="text-lg font-bold mb-6">Collection de Badges</h3>
+                    <div id="badgesGrid" class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <!-- Badges loaded here -->
                     </div>
                 </div>
 
-                <!-- Rewards/Sanctions System -->
-                <div class="grid md:grid-cols-2 gap-6">
+                <div class="grid md:grid-cols-2 gap-6 mt-6">
                     <div class="glass-panel rounded-2xl p-6">
-                        <h3 class="text-lg font-bold mb-4 text-green-400">🎁 Récompenses (Semaine réussie)</h3>
-                        <div class="space-y-3">
-                            <div class="glass-card rounded-xl p-3 flex items-center gap-3">
-                                <i class="fa-solid fa-film text-green-400"></i>
-                                <span class="text-sm">Film / Série le weekend</span>
-                                <input type="checkbox" class="ml-auto reward-check" data-type="reward">
+                        <h3 class="text-lg font-bold mb-4">Niveaux & XP</h3>
+                        <div class="space-y-4">
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-400">Niveau Actuel</span>
+                                <span id="currentLevelDisplay" class="text-white font-bold">1</span>
                             </div>
-                            <div class="glass-card rounded-xl p-3 flex items-center gap-3">
-                                <i class="fa-solid fa-utensils text-green-400"></i>
-                                <span class="text-sm">Restaurant / Sortie</span>
-                                <input type="checkbox" class="ml-auto reward-check" data-type="reward">
+                            <div class="w-full bg-slate-700 rounded-full h-4">
+                                <div id="xpBarLarge" class="bg-gradient-to-r from-green-500 to-emerald-400 h-4 rounded-full" style="width: 0%"></div>
                             </div>
-                            <div class="glass-card rounded-xl p-3 flex items-center gap-3">
-                                <i class="fa-solid fa-gift text-green-400"></i>
-                                <span class="text-sm">Petit achat plaisir</span>
-                                <input type="checkbox" class="ml-auto reward-check" data-type="reward">
-                            </div>
-                            <div class="glass-card rounded-xl p-3 flex items-center gap-3">
-                                <i class="fa-solid fa-bed text-green-400"></i>
-                                <span class="text-sm">Grasse matinée</span>
-                                <input type="checkbox" class="ml-auto reward-check" data-type="reward">
-                            </div>
+                            <p class="text-xs text-slate-500 text-center">Encore <span id="xpNeeded">100</span> XP pour le niveau suivant</p>
                         </div>
                     </div>
-
                     <div class="glass-panel rounded-2xl p-6">
-                        <h3 class="text-lg font-bold mb-4 text-red-400">🚫 Sanctions (Semaine ratée)</h3>
-                        <div class="space-y-3">
-                            <div class="glass-card rounded-xl p-3 flex items-center gap-3">
-                                <i class="fa-solid fa-mobile-screen text-red-400"></i>
-                                <span class="text-sm">Pas de réseaux sociaux</span>
-                                <input type="checkbox" class="ml-auto sanction-check" data-type="sanction">
-                            </div>
-                            <div class="glass-card rounded-xl p-3 flex items-center gap-3">
-                                <i class="fa-solid fa-gamepad text-red-400"></i>
-                                <span class="text-sm">Pas de jeux vidéo</span>
-                                <input type="checkbox" class="ml-auto sanction-check" data-type="sanction">
-                            </div>
-                            <div class="glass-card rounded-xl p-3 flex items-center gap-3">
-                                <i class="fa-solid fa-tv text-red-400"></i>
-                                <span class="text-sm">Pas de streaming</span>
-                                <input type="checkbox" class="ml-auto sanction-check" data-type="sanction">
-                            </div>
-                            <div class="glass-card rounded-xl p-3 flex items-center gap-3">
-                                <i class="fa-solid fa-person-running text-red-400"></i>
-                                <span class="text-sm">Session supplémentaire +30min</span>
-                                <input type="checkbox" class="ml-auto sanction-check" data-type="sanction">
+                        <h3 class="text-lg font-bold mb-4">Prochaine Récompense</h3>
+                        <div class="flex items-center gap-4 p-4 glass-card rounded-xl border-l-4 border-yellow-500">
+                            <div class="text-3xl">🎁</div>
+                            <div>
+                                <p class="font-bold text-white">Cadeau Spécial J30</p>
+                                <p class="text-xs text-slate-400">Atteignez le jour 30 pour débloquer</p>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Weekly Evaluation -->
-                <div class="glass-panel rounded-2xl p-6 mt-6">
-                    <h3 class="text-lg font-bold mb-4">📊 Évaluation Hebdomadaire (Dimanche)</h3>
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm text-slate-400 mb-2">1. Ai-je respecté les 60 min/jour ?</label>
-                            <input type="range" id="eval1" min="0" max="10" value="5" class="w-full" oninput="document.getElementById('eval1Val').innerText = this.value + '/10'">
-                            <p id="eval1Val" class="text-right text-sm font-bold">5/10</p>
-                        </div>
-                        <div>
-                            <label class="block text-sm text-slate-400 mb-2">2. Ai-je produit quelque chose ?</label>
-                            <input type="range" id="eval2" min="0" max="10" value="5" class="w-full" oninput="document.getElementById('eval2Val').innerText = this.value + '/10'">
-                            <p id="eval2Val" class="text-right text-sm font-bold">5/10</p>
-                        </div>
-                        <div>
-                            <label class="block text-sm text-slate-400 mb-2">3. Ai-je progressé ?</label>
-                            <input type="range" id="eval3" min="0" max="10" value="5" class="w-full" oninput="document.getElementById('eval3Val').innerText = this.value + '/10'">
-                            <p id="eval3Val" class="text-right text-sm font-bold">5/10</p>
-                        </div>
-                        <div class="glass-card rounded-xl p-4 text-center">
-                            <p class="text-sm text-slate-400">Score Total</p>
-                            <p id="totalScore" class="text-4xl font-bold text-green-400">15/30</p>
-                            <p id="scoreMessage" class="text-sm mt-2">Score < 21/30 → Correction immédiate</p>
-                        </div>
-                        <button onclick="saveWeeklyEvaluation()" class="w-full py-3 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl font-semibold hover:opacity-90 transition">
-                            Enregistrer l'évaluation
-                        </button>
                     </div>
                 </div>
             </section>
 
             <!-- CONTRACT SECTION -->
             <section id="contractSection" class="section hidden">
-                <div class="glass-panel rounded-2xl p-6 max-w-2xl mx-auto">
-                    <h3 class="text-2xl font-bold mb-6 text-center">📜 Contrat d'Engagement</h3>
-                    
-                    <div class="glass-card rounded-xl p-6 mb-6 border border-yellow-500/30">
-                        <p class="text-lg text-center italic leading-relaxed">
-                            "Pendant 90 jours, je priorise ma formation.<br>
-                            Je respecte mes blocs de travail.<br>
-                            Je construis mon avenir de pharmacien expert.<br>
-                            <br>
-                            Je m'engage à travailler minimum 60 minutes par jour ouvrable,<br>
-                            même fatigué, même pas motivé, même malade léger.<br>
-                            <br>
-                            Zéro excuse. Zéro jour blanc."
-                        </p>
+                <div class="max-w-2xl mx-auto glass-panel rounded-2xl p-8 border-2 border-green-500/30">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-black text-white mb-2 uppercase tracking-widest">Contrat d'Engagement</h3>
+                        <p class="text-green-400 font-bold italic">"Je ne négocie pas avec mes objectifs"</p>
                     </div>
 
-                    <div id="contractForm">
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-sm text-slate-400 mb-2">Nom complet</label>
-                                <input type="text" id="contractName" placeholder="Votre nom" class="w-full glass-card rounded-xl p-3 text-white border border-slate-700 focus:border-green-500 focus:outline-none">
-                            </div>
-                            <div>
-                                <label class="block text-sm text-slate-400 mb-2">Date de début</label>
-                                <input type="date" id="contractDate" class="w-full glass-card rounded-xl p-3 text-white border border-slate-700 focus:border-green-500 focus:outline-none">
-                            </div>
-                            <button onclick="signContract()" class="w-full py-4 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl font-bold text-lg hover:opacity-90 transition">
-                                <i class="fa-solid fa-pen-to-square mr-2"></i>Signer le Contrat
-                            </button>
+                    <div id="contractForm" class="space-y-6">
+                        <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-700 text-sm leading-relaxed text-slate-300">
+                            <p class="mb-4">Je, soussigné(e) <input type="text" id="contractName" class="bg-transparent border-b border-green-500 text-white px-2 focus:outline-none" placeholder="Votre Nom">, m'engage solennellement à suivre le <strong>Challenge 90 Jours - Pharmacien Expert</strong>.</p>
+                            <p class="mb-4">Je reconnais que la réussite ne dépend que de ma discipline quotidienne. Je m'engage à :</p>
+                            <ul class="list-disc ml-6 space-y-2 mb-4">
+                                <li>Consacrer minimum 60 minutes par jour à ma progression.</li>
+                                <li>Remplir mon journal quotidiennement sans exception.</li>
+                                <li>Ne pas abandonner face aux difficultés ou à la fatigue.</li>
+                                <li>Privilégier mon futur professionnel sur mes plaisirs immédiats.</li>
+                            </ul>
+                            <p>Fait le <input type="date" id="contractDate" class="bg-transparent border-b border-green-500 text-white px-2 focus:outline-none">.</p>
                         </div>
+                        <button onclick="signContract()" class="w-full py-4 bg-green-500 hover:bg-green-600 text-white font-black rounded-xl transition shadow-xl shadow-green-500/20 uppercase tracking-widest">
+                            Signer le Contrat
+                        </button>
                     </div>
 
-                    <div id="contractSigned" class="hidden text-center">
-                        <div class="w-20 h-20 rounded-full bg-green-500/20 flex items-center justify-center mx-auto mb-4">
-                            <i class="fa-solid fa-check text-4xl text-green-400"></i>
+                    <div id="contractSigned" class="hidden text-center py-12">
+                        <div class="w-24 h-24 bg-green-500/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                            <i class="fa-solid fa-check-double text-4xl text-green-500"></i>
                         </div>
-                        <h4 class="text-xl font-bold text-green-400 mb-2">Contrat Signé !</h4>
-                        <p id="signedName" class="text-lg font-semibold"></p>
+                        <h4 class="text-xl font-bold text-white mb-2">Contrat Signé & Actif</h4>
+                        <p id="signedName" class="text-2xl font-black text-green-400 uppercase mb-4"></p>
                         <p id="signedDate" class="text-sm text-slate-400"></p>
-                        <p class="text-xs text-slate-500 mt-4">Le challenge a commencé. Bon courage !</p>
+                        <div class="mt-8 p-4 glass-card rounded-xl italic text-slate-300">
+                            "Le succès est la somme de petits efforts répétés jour après jour."
+                        </div>
                     </div>
                 </div>
             </section>
 
             <!-- FOCUS SECTION -->
             <section id="focusSection" class="section hidden">
-                <div class="max-w-lg mx-auto">
-                    <!-- Timer Display -->
-                    <div class="glass-panel rounded-2xl p-8 text-center mb-6">
-                        <div class="relative w-64 h-64 mx-auto mb-6">
-                            <svg class="w-full h-full transform -rotate-90">
-                                <circle cx="128" cy="128" r="120" stroke="#334155" stroke-width="8" fill="transparent" />
-                                <circle id="focusTimerCircle" cx="128" cy="128" r="120" stroke="#22c55e" stroke-width="8" fill="transparent" stroke-dasharray="754" stroke-dashoffset="0" class="progress-ring__circle" />
+                <div class="max-w-md mx-auto text-center">
+                    <div class="glass-panel rounded-3xl p-8 mb-8">
+                        <h3 class="text-xl font-bold mb-8">Mode Focus Élite</h3>
+                        
+                        <div class="relative w-64 h-64 mx-auto mb-8">
+                            <svg class="w-full h-full" viewBox="0 0 250 250">
+                                <circle class="text-slate-800 stroke-current" stroke-width="10" fill="transparent" r="120" cx="125" cy="125"/>
+                                <circle id="focusTimerCircle" class="text-green-500 stroke-current progress-ring__circle" stroke-width="10" stroke-linecap="round" fill="transparent" r="120" cx="125" cy="125" stroke-dasharray="753.98" stroke-dashoffset="0"/>
                             </svg>
-                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                                <div id="focusTimerDisplay" class="text-5xl font-bold font-mono text-white">25:00</div>
-                                <div id="focusTimerPhase" class="text-sm text-slate-400 mt-2">Session Focus</div>
+                            <div class="absolute inset-0 flex flex-col items-center justify-center">
+                                <span id="focusTimerDisplay" class="text-5xl font-black text-white font-mono">25:00</span>
+                                <span class="text-xs text-slate-400 uppercase mt-2 tracking-widest">Deep Work</span>
                             </div>
                         </div>
 
-                        <div class="flex justify-center gap-4 mb-6">
-                            <button onclick="setFocusMode(0)" class="px-4 py-2 glass-card rounded-lg text-sm hover:bg-slate-700 transition">25 min</button>
-                            <button onclick="setFocusMode(1)" class="px-4 py-2 glass-card rounded-lg text-sm hover:bg-slate-700 transition">40 min</button>
-                            <button onclick="setFocusMode(2)" class="px-4 py-2 glass-card rounded-lg text-sm hover:bg-slate-700 transition">60 min</button>
+                        <div class="flex justify-center gap-4 mb-8">
+                            <button onclick="setFocusMode(0)" class="px-4 py-2 rounded-lg bg-slate-800 text-xs font-bold text-slate-300 hover:bg-slate-700 transition">25 min</button>
+                            <button onclick="setFocusMode(1)" class="px-4 py-2 rounded-lg bg-slate-800 text-xs font-bold text-slate-300 hover:bg-slate-700 transition">40 min</button>
+                            <button onclick="setFocusMode(2)" class="px-4 py-2 rounded-lg bg-slate-800 text-xs font-bold text-slate-300 hover:bg-slate-700 transition">60 min</button>
                         </div>
 
-                        <button id="focusToggleBtn" onclick="toggleFocusTimer()" class="w-full py-4 bg-gradient-to-r from-green-500 to-emerald-600 rounded-xl font-bold text-lg hover:opacity-90 transition">
+                        <button id="focusToggleBtn" onclick="toggleFocusTimer()" class="w-full py-4 bg-green-500 hover:bg-green-600 text-white font-black rounded-2xl transition shadow-xl shadow-green-500/20 uppercase tracking-widest">
                             <i class="fa-solid fa-play mr-2"></i>Démarrer
                         </button>
                     </div>
 
-                    <!-- Anti-Distraction Tips -->
                     <div class="glass-panel rounded-2xl p-6">
-                        <h3 class="text-lg font-bold mb-4">📵 Mode Anti-Distraction</h3>
-                        <div class="space-y-3">
+                        <h4 class="font-bold mb-4 text-left">Checklist Pré-Focus</h4>
+                        <div class="space-y-3 text-left">
                             <div class="glass-card rounded-xl p-4 flex items-center gap-3">
                                 <i class="fa-solid fa-mobile-screen-button text-red-400 text-xl"></i>
                                 <div class="flex-1">
-                                    <p class="font-semibold text-sm">Téléphone en mode avion</p>
-                                    <p class="text-xs text-slate-400">Coupez toutes les notifications</p>
+                                    <p class="font-semibold text-sm">Téléphone éloigné</p>
+                                    <p class="text-xs text-slate-400">Mode avion ou autre pièce</p>
                                 </div>
                                 <label class="relative inline-flex items-center cursor-pointer">
-                                    <input type="checkbox" id="airplaneMode" class="sr-only peer">
+                                    <input type="checkbox" id="phoneAway" class="sr-only peer">
                                     <div class="w-11 h-6 bg-slate-700 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-500"></div>
                                 </label>
                             </div>
@@ -1048,1012 +633,7 @@
     <!-- Overlay for mobile sidebar -->
     <div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/50 z-40 hidden md:hidden"></div>
 
-    <script>
-        // ==================== STATE MANAGEMENT ====================
-        const CHALLENGE_DURATION = 90;
-        
-        let appState = {
-            startDate: null,
-            contractSigned: false,
-            contractName: '',
-            contractDate: null,
-            dailyLogs: {},
-            goals: [],
-            sessions: {},
-            badges: [],
-            level: 1,
-            xp: 0,
-            weeklyEvaluations: [],
-            requirements: { req1: false, req2: false, req3: false, req4: false }
-        };
-
-        let focusTimerInterval = null;
-        let focusTimeLeft = 1500;
-        let focusRunning = false;
-        let focusMode = 0;
-
-        let weeklyChartInstance = null;
-        let disciplineChartInstance = null;
-        let timeChartInstance = null;
-
-        // PWA Install Prompt
-        let deferredPrompt = null;
-
-        // ==================== INITIALIZATION ====================
-        function init() {
-            loadData();
-            if (!appState.startDate) {
-                appState.startDate = new Date().toISOString();
-                saveData();
-            }
-            
-            document.getElementById('journalDate').value = getTodayKey();
-            document.getElementById('contractDate').value = new Date().toISOString().split('T')[0];
-            
-            updateUI();
-            initCharts();
-            renderBadges();
-            renderGoals();
-            renderJournalHistory();
-            renderHeatmap();
-            
-            if (appState.contractSigned) {
-                showSignedContract();
-            }
-
-            // Register Service Worker
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('sw.js')
-                    .then(() => console.log('Service Worker registered'))
-                    .catch(err => console.error('SW registration failed:', err));
-            }
-
-            // Listen for install prompt
-            window.addEventListener('beforeinstallprompt', (e) => {
-                e.preventDefault();
-                deferredPrompt = e;
-                document.getElementById('installBanner').style.display = 'flex';
-            });
-
-            // Handle app installed
-            window.addEventListener('appinstalled', () => {
-                document.getElementById('installBanner').style.display = 'none';
-                deferredPrompt = null;
-            });
-        }
-
-        // ==================== PWA INSTALL FUNCTIONS ====================
-        function installPWA() {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') {
-                        console.log('User accepted the install prompt');
-                    }
-                    deferredPrompt = null;
-                    document.getElementById('installBanner').style.display = 'none';
-                });
-            }
-        }
-
-        function dismissInstallBanner() {
-            document.getElementById('installBanner').style.display = 'none';
-            localStorage.setItem('pwaInstallDismissed', 'true');
-        }
-
-        // ==================== DATA PERSISTENCE ====================
-        function saveData() {
-            localStorage.setItem('pharmaChallenge_v2', JSON.stringify(appState));
-        }
-
-        function loadData() {
-            const saved = localStorage.getItem('pharmaChallenge_v2');
-            if (saved) {
-                appState = JSON.parse(saved);
-            }
-        }
-
-        function getTodayKey() {
-            return new Date().toISOString().split('T')[0];
-        }
-
-        function getDayNumber() {
-            if (!appState.startDate) return 1;
-            const start = new Date(appState.startDate);
-            const now = new Date();
-            const diffTime = now - start;
-            const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24)) + 1;
-            return Math.min(diffDays, CHALLENGE_DURATION);
-        }
-
-        function getPhase() {
-            const day = getDayNumber();
-            if (day <= 30) return 1;
-            if (day <= 60) return 2;
-            return 3;
-        }
-
-        // ==================== UI UPDATES ====================
-        function updateUI() {
-            const dayNum = getDayNumber();
-            const phase = getPhase();
-            const todayKey = getTodayKey();
-            const todayData = appState.dailyLogs[todayKey] || {};
-
-            document.getElementById('currentDay').innerText = dayNum;
-            document.getElementById('daysRemaining').innerText = CHALLENGE_DURATION - dayNum;
-            
-            const phaseNames = {
-                1: { name: 'Phase 1: Réactivation', desc: 'Reprendre l\'habitude. Régularité > performance.', color: 'green' },
-                2: { name: 'Phase 2: Intensification', desc: 'Monter en niveau. Compréhension profonde.', color: 'blue' },
-                3: { name: 'Phase 3: Domination', desc: 'Devenir référence. Production maximale.', color: 'red' }
-            };
-            
-            const phaseInfo = phaseNames[phase];
-            document.getElementById('phaseName').innerText = phaseInfo.name;
-            document.getElementById('phaseDesc').innerText = phaseInfo.desc;
-            document.getElementById('phaseBadge').innerText = `Phase ${phase}`;
-            document.getElementById('phaseBadge').className = `text-xs px-2 py-0.5 rounded-full bg-${phaseInfo.color}-900/50 text-${phaseInfo.color}-400 inline-block`;
-            
-            const phaseStart = phase === 1 ? 1 : phase === 2 ? 31 : 61;
-            const phaseEnd = phase === 1 ? 30 : phase === 2 ? 60 : 90;
-            const phaseProgress = ((dayNum - phaseStart + 1) / (phaseEnd - phaseStart + 1)) * 100;
-            document.getElementById('phaseProgress').style.width = `${phaseProgress}%`;
-
-            const percent = Math.round((dayNum / CHALLENGE_DURATION) * 100);
-            document.getElementById('progressPercent').innerText = `${percent}%`;
-            document.getElementById('progressBar').style.width = `${percent}%`;
-
-            const streak = calculateStreak();
-            document.getElementById('streakCount').innerText = streak;
-
-            const todayMinutes = todayData.duration || 0;
-            document.getElementById('todayMinutes').innerText = todayMinutes;
-
-            const weeklyScore = calculateWeeklyScore();
-            document.getElementById('disciplineScore').innerText = `${weeklyScore}/10`;
-
-            updateTaskIcons(todayData);
-
-            if (todayData.focus) {
-                document.getElementById('focusSlider').value = todayData.focus;
-                document.getElementById('focusValue').innerText = `${todayData.focus}/5`;
-            }
-
-            document.getElementById('phoneCheck').checked = todayData.phoneRespected || false;
-
-            document.getElementById('userLevel').innerText = appState.level;
-            document.getElementById('rewardLevel').innerText = appState.level;
-            const xpPercent = (appState.xp / (appState.level * 100)) * 100;
-            document.getElementById('xpBar').style.width = `${Math.min(xpPercent, 100)}%`;
-            document.getElementById('rewardXpBar').style.width = `${Math.min(xpPercent, 100)}%`;
-            document.getElementById('currentXp').innerText = appState.xp;
-            document.getElementById('maxXp').innerText = appState.level * 100;
-
-            updateStats();
-        }
-
-        function updateTaskIcons(data) {
-            const tasks = ['morning', 'classes', 'evening', 'bonus'];
-            tasks.forEach(task => {
-                const icon = document.getElementById(`icon${task.charAt(0).toUpperCase() + task.slice(1)}`);
-                const card = document.getElementById(`task${task.charAt(0).toUpperCase() + task.slice(1)}`);
-                if (data[task]) {
-                    icon.classList.remove('fa-circle', 'text-slate-600');
-                    icon.classList.add('fa-circle-check', 'text-green-400');
-                    card.classList.add('bg-green-900/20');
-                } else {
-                    icon.classList.add('fa-circle', 'text-slate-600');
-                    icon.classList.remove('fa-circle-check', 'text-green-400');
-                    card.classList.remove('bg-green-900/20');
-                }
-            });
-        }
-
-        function calculateStreak() {
-            let streak = 0;
-            const today = new Date();
-            for (let i = 0; i < 365; i++) {
-                const date = new Date(today);
-                date.setDate(date.getDate() - i);
-                const key = date.toISOString().split('T')[0];
-                const log = appState.dailyLogs[key];
-                if (log && (log.morning || log.evening)) {
-                    streak++;
-                } else if (i > 0) {
-                    break;
-                }
-            }
-            return streak;
-        }
-
-        function calculateWeeklyScore() {
-            let total = 0;
-            let count = 0;
-            const today = new Date();
-            for (let i = 0; i < 7; i++) {
-                const date = new Date(today);
-                date.setDate(date.getDate() - i);
-                const key = date.toISOString().split('T')[0];
-                const log = appState.dailyLogs[key];
-                if (log) {
-                    total += log.focus || 3;
-                    count++;
-                }
-            }
-            return count > 0 ? Math.round(total / count * 2) : 0;
-        }
-
-        // ==================== DAILY TASKS ====================
-        function toggleDailyTask(task) {
-            const todayKey = getTodayKey();
-            if (!appState.dailyLogs[todayKey]) {
-                appState.dailyLogs[todayKey] = { date: todayKey };
-            }
-            appState.dailyLogs[todayKey][task] = !appState.dailyLogs[todayKey][task];
-            
-            let duration = 0;
-            if (appState.dailyLogs[todayKey].morning) duration += 25;
-            if (appState.dailyLogs[todayKey].evening) duration += 60;
-            if (appState.dailyLogs[todayKey].bonus) duration += 30;
-            appState.dailyLogs[todayKey].duration = duration;
-            
-            if (appState.dailyLogs[todayKey][task]) {
-                addXP(10);
-                checkBadges();
-            }
-            
-            saveData();
-            updateUI();
-            updateChart();
-        }
-
-        function updateFocus(value) {
-            const todayKey = getTodayKey();
-            document.getElementById('focusValue').innerText = `${value}/5`;
-            if (!appState.dailyLogs[todayKey]) {
-                appState.dailyLogs[todayKey] = { date: todayKey };
-            }
-            appState.dailyLogs[todayKey].focus = parseInt(value);
-            saveData();
-        }
-
-        function saveDailyData() {
-            const todayKey = getTodayKey();
-            if (!appState.dailyLogs[todayKey]) {
-                appState.dailyLogs[todayKey] = { date: todayKey };
-            }
-            appState.dailyLogs[todayKey].phoneRespected = document.getElementById('phoneCheck').checked;
-            saveData();
-        }
-
-        // ==================== NAVIGATION ====================
-        function showSection(sectionId) {
-            document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
-            document.getElementById(`${sectionId}Section`).classList.remove('hidden');
-            
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-            event.currentTarget.classList.add('active');
-            
-            const titles = {
-                dashboard: { title: 'Dashboard', subtitle: 'Vue d\'ensemble' },
-                planning: { title: 'Planning', subtitle: 'Emploi du temps' },
-                journal: { title: 'Journal', subtitle: 'Suivi quotidien' },
-                goals: { title: 'Objectifs', subtitle: 'Livrables à atteindre' },
-                stats: { title: 'Performance', subtitle: 'Statistiques détaillées' },
-                rewards: { title: 'Récompenses', subtitle: 'Gamification' },
-                contract: { title: 'Contrat', subtitle: 'Engagement personnel' },
-                focus: { title: 'Mode Focus', subtitle: 'Timer anti-distraction' }
-            };
-            
-            document.getElementById('pageTitle').innerText = titles[sectionId].title;
-            document.getElementById('pageSubtitle').innerText = titles[sectionId].subtitle;
-            
-            document.getElementById('sidebar').classList.remove('open');
-            document.getElementById('sidebarOverlay').classList.add('hidden');
-            
-            if (sectionId === 'stats') {
-                updateStats();
-                updateCharts();
-            }
-            if (sectionId === 'rewards') {
-                renderBadges();
-            }
-            if (sectionId === 'goals') {
-                renderGoals();
-            }
-            if (sectionId === 'journal') {
-                renderJournalHistory();
-            }
-        }
-
-        function toggleSidebar() {
-            const sidebar = document.getElementById('sidebar');
-            const overlay = document.getElementById('sidebarOverlay');
-            sidebar.classList.toggle('open');
-            overlay.classList.toggle('hidden');
-        }
-
-        function toggleNotifications() {
-            const panel = document.getElementById('notificationsPanel');
-            panel.classList.toggle('hidden');
-            loadNotifications();
-        }
-
-        // ==================== JOURNAL ====================
-        function saveJournalEntry() {
-            const date = document.getElementById('journalDate').value;
-            const duration = parseInt(document.getElementById('journalDuration').value) || 0;
-            const focus = parseInt(document.getElementById('journalFocus').value);
-            const phoneRespected = document.getElementById('journalPhone').checked;
-            const distraction = document.getElementById('journalDistraction').checked;
-            const notes = document.getElementById('journalNotes').value;
-            
-            if (!appState.dailyLogs[date]) {
-                appState.dailyLogs[date] = { date };
-            }
-            
-            appState.dailyLogs[date].duration = duration;
-            appState.dailyLogs[date].focus = focus;
-            appState.dailyLogs[date].phoneRespected = phoneRespected;
-            appState.dailyLogs[date].distraction = distraction;
-            appState.dailyLogs[date].notes = notes;
-            
-            saveData();
-            renderJournalHistory();
-            updateUI();
-            
-            alert('Entrée enregistrée avec succès !');
-            document.getElementById('journalDuration').value = '';
-            document.getElementById('journalNotes').value = '';
-        }
-
-        function renderJournalHistory() {
-            const container = document.getElementById('journalHistory');
-            const entries = Object.values(appState.dailyLogs).sort((a, b) => new Date(b.date) - new Date(a.date)).slice(0, 20);
-            
-            if (entries.length === 0) {
-                container.innerHTML = '<p class="text-slate-400 text-center py-8">Aucune entrée</p>';
-                return;
-            }
-            
-            container.innerHTML = entries.map(entry => `
-                <div class="glass-card rounded-xl p-4">
-                    <div class="flex justify-between items-start mb-2">
-                        <span class="font-semibold text-white">${new Date(entry.date).toLocaleDateString('fr-FR')}</span>
-                        <span class="text-xs ${entry.distraction ? 'text-red-400' : 'text-green-400'}">
-                            ${entry.distraction ? '⚠️ Distrait' : '✅ Focus'}
-                        </span>
-                    </div>
-                    <div class="flex gap-4 text-sm text-slate-400">
-                        <span>⏱️ ${entry.duration || 0} min</span>
-                        <span>🧠 ${entry.focus || 0}/5</span>
-                        <span>📱 ${entry.phoneRespected ? 'OK' : 'NON'}</span>
-                    </div>
-                    ${entry.notes ? `<p class="text-xs text-slate-500 mt-2 italic">"${entry.notes}"</p>` : ''}
-                </div>
-            `).join('');
-        }
-
-        // ==================== GOALS ====================
-        function addGoal() {
-            const title = document.getElementById('goalTitle').value;
-            const type = document.getElementById('goalType').value;
-            const deadline = document.getElementById('goalDeadline').value;
-            const desc = document.getElementById('goalDesc').value;
-            
-            if (!title || !deadline) {
-                alert('Veuillez remplir le titre et la date limite');
-                return;
-            }
-            
-            const goal = {
-                id: Date.now(),
-                title,
-                type,
-                deadline,
-                desc,
-                status: 'pending',
-                createdAt: new Date().toISOString()
-            };
-            
-            appState.goals.push(goal);
-            saveData();
-            renderGoals();
-            
-            document.getElementById('goalTitle').value = '';
-            document.getElementById('goalDesc').value = '';
-            document.getElementById('goalDeadline').value = '';
-        }
-
-        function renderGoals() {
-            const container = document.getElementById('goalsGrid');
-            
-            if (appState.goals.length === 0) {
-                container.innerHTML = '<p class="text-slate-400 col-span-full text-center py-8">Aucun objectif défini</p>';
-                return;
-            }
-            
-            const typeIcons = {
-                synthese: '📄',
-                projet: '📊',
-                revue: '📚',
-                etude: '🧪'
-            };
-            
-            container.innerHTML = appState.goals.map(goal => `
-                <div class="glass-card rounded-xl p-4 border-l-4 ${goal.status === 'completed' ? 'border-green-500' : 'border-yellow-500'}">
-                    <div class="flex justify-between items-start mb-2">
-                        <span class="text-2xl">${typeIcons[goal.type]}</span>
-                        <button onclick="toggleGoalStatus(${goal.id})" class="text-slate-400 hover:text-green-400">
-                            <i class="fa-solid ${goal.status === 'completed' ? 'fa-circle-check text-green-400' : 'fa-circle'}"></i>
-                        </button>
-                    </div>
-                    <h4 class="font-semibold text-white mb-1">${goal.title}</h4>
-                    <p class="text-xs text-slate-400 mb-2">${goal.desc || ''}</p>
-                    <div class="flex justify-between items-center text-xs">
-                        <span class="text-slate-500">📅 ${new Date(goal.deadline).toLocaleDateString('fr-FR')}</span>
-                        <span class="${goal.status === 'completed' ? 'text-green-400' : 'text-yellow-400'}">
-                            ${goal.status === 'completed' ? 'Terminé' : 'En cours'}
-                        </span>
-                    </div>
-                    <button onclick="deleteGoal(${goal.id})" class="mt-3 text-xs text-red-400 hover:text-red-300">
-                        <i class="fa-solid fa-trash mr-1"></i>Supprimer
-                    </button>
-                </div>
-            `).join('');
-        }
-
-        function toggleGoalStatus(id) {
-            const goal = appState.goals.find(g => g.id === id);
-            if (goal) {
-                goal.status = goal.status === 'completed' ? 'pending' : 'completed';
-                if (goal.status === 'completed') {
-                    addXP(50);
-                    checkBadges();
-                }
-                saveData();
-                renderGoals();
-            }
-        }
-
-        function deleteGoal(id) {
-            if (confirm('Supprimer cet objectif ?')) {
-                appState.goals = appState.goals.filter(g => g.id !== id);
-                saveData();
-                renderGoals();
-            }
-        }
-
-        function updateRequirements() {
-            appState.requirements = {
-                req1: document.getElementById('req1').checked,
-                req2: document.getElementById('req2').checked,
-                req3: document.getElementById('req3').checked,
-                req4: document.getElementById('req4').checked
-            };
-            saveData();
-        }
-
-        // ==================== CONTRACT ====================
-        function signContract() {
-            const name = document.getElementById('contractName').value;
-            const date = document.getElementById('contractDate').value;
-            
-            if (!name || !date) {
-                alert('Veuillez remplir votre nom et la date');
-                return;
-            }
-            
-            appState.contractSigned = true;
-            appState.contractName = name;
-            appState.contractDate = date;
-            appState.startDate = date;
-            
-            saveData();
-            showSignedContract();
-            updateUI();
-        }
-
-        function showSignedContract() {
-            document.getElementById('contractForm').classList.add('hidden');
-            document.getElementById('contractSigned').classList.remove('hidden');
-            document.getElementById('signedName').innerText = appState.contractName;
-            document.getElementById('signedDate').innerText = `Signé le ${new Date(appState.contractDate).toLocaleDateString('fr-FR')}`;
-        }
-
-        // ==================== FOCUS TIMER ====================
-        function setFocusMode(mode) {
-            const times = [1500, 2400, 3600];
-            focusMode = mode;
-            focusTimeLeft = times[mode];
-            focusRunning = false;
-            clearInterval(focusTimerInterval);
-            updateFocusTimerDisplay();
-            document.getElementById('focusToggleBtn').innerHTML = '<i class="fa-solid fa-play mr-2"></i>Démarrer';
-        }
-
-        function toggleFocusTimer() {
-            if (focusRunning) {
-                clearInterval(focusTimerInterval);
-                focusRunning = false;
-                document.getElementById('focusToggleBtn').innerHTML = '<i class="fa-solid fa-play mr-2"></i>Reprendre';
-            } else {
-                focusRunning = true;
-                document.getElementById('focusToggleBtn').innerHTML = '<i class="fa-solid fa-pause mr-2"></i>Pause';
-                focusTimerInterval = setInterval(() => {
-                    if (focusTimeLeft > 0) {
-                        focusTimeLeft--;
-                        updateFocusTimerDisplay();
-                    } else {
-                        clearInterval(focusTimerInterval);
-                        focusRunning = false;
-                        document.getElementById('focusToggleBtn').innerHTML = '<i class="fa-solid fa-play mr-2"></i>Démarrer';
-                        
-                        const todayKey = getTodayKey();
-                        const sessionDuration = focusMode === 0 ? 25 : focusMode === 1 ? 40 : 60;
-                        
-                        if (!appState.sessions[todayKey]) {
-                            appState.sessions[todayKey] = [];
-                        }
-                        appState.sessions[todayKey].push({
-                            duration: sessionDuration,
-                            completedAt: new Date().toISOString()
-                        });
-                        
-                        if (!appState.dailyLogs[todayKey]) {
-                            appState.dailyLogs[todayKey] = { date: todayKey };
-                        }
-                        appState.dailyLogs[todayKey].duration = (appState.dailyLogs[todayKey].duration || 0) + sessionDuration;
-                        
-                        addXP(20);
-                        saveData();
-                        updateUI();
-                        renderSessionLog();
-                        
-                        alert('Session terminée ! +20 XP');
-                    }
-                }, 1000);
-            }
-        }
-
-        function updateFocusTimerDisplay() {
-            const minutes = Math.floor(focusTimeLeft / 60);
-            const seconds = focusTimeLeft % 60;
-            document.getElementById('focusTimerDisplay').innerText = 
-                `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            
-            const maxTime = focusMode === 0 ? 1500 : focusMode === 1 ? 2400 : 3600;
-            const circumference = 2 * Math.PI * 120;
-            const offset = circumference - (focusTimeLeft / maxTime) * circumference;
-            document.getElementById('focusTimerCircle').style.strokeDashoffset = offset;
-        }
-
-        function renderSessionLog() {
-            const todayKey = getTodayKey();
-            const container = document.getElementById('sessionLog');
-            const sessions = appState.sessions[todayKey] || [];
-            
-            if (sessions.length === 0) {
-                container.innerHTML = '<p class="text-sm text-slate-400 text-center">Aucune session enregistrée</p>';
-                return;
-            }
-            
-            container.innerHTML = sessions.map(session => `
-                <div class="glass-card rounded-lg p-3 flex justify-between items-center">
-                    <span class="text-sm text-white">Session Focus</span>
-                    <span class="text-sm text-green-400">+${session.duration} min</span>
-                </div>
-            `).join('');
-        }
-
-        // ==================== REWARDS & BADGES ====================
-        const BADGES = [
-            { id: 'first_day', name: 'Premier Jour', icon: '🌟', requirement: () => getDayNumber() >= 1 },
-            { id: 'week_1', name: '1ère Semaine', icon: '📅', requirement: () => calculateStreak() >= 7 },
-            { id: 'month_1', name: '1er Mois', icon: '🎯', requirement: () => getDayNumber() >= 30 },
-            { id: 'focus_master', name: 'Maître du Focus', icon: '🧘', requirement: () => {
-                const logs = Object.values(appState.dailyLogs);
-                return logs.filter(l => l.focus >= 5).length >= 10;
-            }},
-            { id: 'goal_crusher', name: 'Objectif Atteint', icon: '🏆', requirement: () => {
-                return appState.goals.some(g => g.status === 'completed');
-            }},
-            { id: 'perfect_week', name: 'Semaine Parfaite', icon: '💎', requirement: () => calculateWeeklyScore() >= 9 },
-            { id: 'halfway', name: 'Moitié du Chemin', icon: '⛰️', requirement: () => getDayNumber() >= 45 },
-            { id: 'champion', name: 'Champion J90', icon: '👑', requirement: () => getDayNumber() >= 90 }
-        ];
-
-        function checkBadges() {
-            BADGES.forEach(badge => {
-                if (!appState.badges.includes(badge.id) && badge.requirement()) {
-                    appState.badges.push(badge.id);
-                    showNotification(`🏆 Badge débloqué: ${badge.name}`);
-                }
-            });
-            saveData();
-        }
-
-        function renderBadges() {
-            const container = document.getElementById('badgesGrid');
-            
-            container.innerHTML = BADGES.map(badge => {
-                const unlocked = appState.badges.includes(badge.id);
-                return `
-                    <div class="glass-card rounded-xl p-4 text-center ${unlocked ? 'badge' : 'opacity-40'}">
-                        <div class="text-3xl mb-2">${badge.icon}</div>
-                        <p class="text-xs font-semibold ${unlocked ? 'text-white' : 'text-slate-500'}">${badge.name}</p>
-                        ${unlocked ? '<i class="fa-solid fa-check text-green-400 text-xs mt-1"></i>' : '<i class="fa-solid fa-lock text-slate-600 text-xs mt-1"></i>'}
-                    </div>
-                `;
-            }).join('');
-        }
-
-        function addXP(amount) {
-            appState.xp += amount;
-            const xpNeeded = appState.level * 100;
-            if (appState.xp >= xpNeeded) {
-                appState.xp -= xpNeeded;
-                appState.level++;
-                showNotification(`🎉 Niveau ${appState.level} atteint !`);
-            }
-            saveData();
-            updateUI();
-        }
-
-        function saveWeeklyEvaluation() {
-            const eval1 = parseInt(document.getElementById('eval1').value);
-            const eval2 = parseInt(document.getElementById('eval2').value);
-            const eval3 = parseInt(document.getElementById('eval3').value);
-            const total = eval1 + eval2 + eval3;
-            
-            appState.weeklyEvaluations.push({
-                date: getTodayKey(),
-                scores: [eval1, eval2, eval3],
-                total
-            });
-            
-            saveData();
-            
-            if (total < 21) {
-                alert(`Score: ${total}/30 - Correction immédiate requise !`);
-            } else {
-                alert(`Score: ${total}/30 - Excellent travail !`);
-                addXP(30);
-            }
-            
-            document.getElementById('totalScore').innerText = `${total}/30`;
-            document.getElementById('scoreMessage').innerText = total < 21 ? 
-                'Score < 21/30 → Correction immédiate' : 
-                'Score ≥ 21/30 → Semaine réussie !';
-        }
-
-        ['eval1', 'eval2', 'eval3'].forEach(id => {
-            document.getElementById(id).addEventListener('input', () => {
-                const total = parseInt(document.getElementById('eval1').value) +
-                             parseInt(document.getElementById('eval2').value) +
-                             parseInt(document.getElementById('eval3').value);
-                document.getElementById('totalScore').innerText = `${total}/30`;
-                document.getElementById('scoreMessage').innerText = total < 21 ? 
-                    'Score < 21/30 → Correction immédiate' : 
-                    'Score ≥ 21/30 → Semaine réussie !';
-            });
-        });
-
-        // ==================== STATS & CHARTS ====================
-        function initCharts() {
-            const weeklyCtx = document.getElementById('weeklyChart').getContext('2d');
-            weeklyChartInstance = new Chart(weeklyCtx, {
-                type: 'bar',
-                data: {
-                    labels: ['L', 'M', 'M', 'J', 'V', 'S', 'D'],
-                    datasets: [{
-                        label: 'Objectif 60min',
-                        data: [0, 0, 0, 0, 0, 0, 0],
-                        backgroundColor: '#22c55e',
-                        borderRadius: 4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        y: { beginAtZero: true, max: 1, ticks: { display: false }, grid: { color: '#334155' } },
-                        x: { grid: { display: false } }
-                    }
-                }
-            });
-
-            const disciplineCtx = document.getElementById('disciplineChart').getContext('2d');
-            disciplineChartInstance = new Chart(disciplineCtx, {
-                type: 'line',
-                data: {
-                    labels: [],
-                    datasets: [{
-                        label: 'Score Discipline',
-                        data: [],
-                        borderColor: '#22c55e',
-                        backgroundColor: 'rgba(34, 197, 94, 0.1)',
-                        fill: true,
-                        tension: 0.4
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { display: false } },
-                    scales: {
-                        y: { beginAtZero: true, max: 10, grid: { color: '#334155' } },
-                        x: { grid: { display: false } }
-                    }
-                }
-            });
-
-            const timeCtx = document.getElementById('timeChart').getContext('2d');
-            timeChartInstance = new Chart(timeCtx, {
-                type: 'doughnut',
-                data: {
-                    labels: ['Matin', 'Soir', 'Bonus'],
-                    datasets: [{
-                        data: [0, 0, 0],
-                        backgroundColor: ['#eab308', '#22c55e', '#a855f7'],
-                        borderWidth: 0
-                    }]
-                },
-                options: {
-                    responsive: true,
-                    maintainAspectRatio: false,
-                    plugins: { legend: { position: 'bottom' } }
-                }
-            });
-
-            updateChart();
-        }
-
-        function updateChart() {
-            if (!weeklyChartInstance) return;
-            
-            const data = [];
-            for (let i = 6; i >= 0; i--) {
-                const d = new Date();
-                d.setDate(d.getDate() - i);
-                const key = d.toISOString().split('T')[0];
-                const log = appState.dailyLogs[key];
-                data.push((log && (log.morning || log.evening)) ? 1 : 0);
-            }
-            
-            weeklyChartInstance.data.datasets[0].data = data;
-            weeklyChartInstance.update();
-        }
-
-        function updateCharts() {
-            const labels = [];
-            const scores = [];
-            const today = new Date();
-            
-            for (let i = 13; i >= 0; i--) {
-                const d = new Date(today);
-                d.setDate(d.getDate() - i);
-                labels.push(d.toLocaleDateString('fr-FR', { weekday: 'short' }));
-                
-                const key = d.toISOString().split('T')[0];
-                const log = appState.dailyLogs[key];
-                scores.push(log ? (log.focus || 3) * 2 : 0);
-            }
-            
-            disciplineChartInstance.data.labels = labels;
-            disciplineChartInstance.data.datasets[0].data = scores;
-            disciplineChartInstance.update();
-
-            let morning = 0, evening = 0, bonus = 0;
-            Object.values(appState.dailyLogs).forEach(log => {
-                if (log.morning) morning += 25;
-                if (log.evening) evening += 60;
-                if (log.bonus) bonus += 30;
-            });
-            
-            timeChartInstance.data.datasets[0].data = [morning, evening, bonus];
-            timeChartInstance.update();
-        }
-
-        function updateStats() {
-            const logs = Object.values(appState.dailyLogs);
-            const completedDays = logs.filter(l => l.morning || l.evening).length;
-            const totalMinutes = logs.reduce((sum, l) => sum + (l.duration || 0), 0);
-            const distractedDays = logs.filter(l => l.distraction).length;
-            
-            document.getElementById('statSuccessRate').innerText = logs.length > 0 ? 
-                `${Math.round((completedDays / logs.length) * 100)}%` : '0%';
-            document.getElementById('statAvgMinutes').innerText = logs.length > 0 ?
-                Math.round(totalMinutes / logs.length) : 0;
-            document.getElementById('statMissedDays').innerText = Math.max(0, getDayNumber() - completedDays);
-            document.getElementById('statDistractionRate').innerText = logs.length > 0 ?
-                `${Math.round((distractedDays / logs.length) * 100)}%` : '0%';
-        }
-
-        function renderHeatmap() {
-            const container = document.getElementById('heatmap');
-            const days = 90;
-            let html = '';
-            
-            for (let i = days - 1; i >= 0; i--) {
-                const d = new Date();
-                d.setDate(d.getDate() - i);
-                const key = d.toISOString().split('T')[0];
-                const log = appState.dailyLogs[key];
-                
-                let intensity = 0;
-                if (log) {
-                    if (log.morning) intensity++;
-                    if (log.evening) intensity++;
-                    if (log.bonus) intensity++;
-                    if (log.focus >= 4) intensity++;
-                }
-                
-                html += `<div class="heatmap-day heatmap-${Math.min(intensity, 4)}" title="${key}: ${intensity} points"></div>`;
-            }
-            
-            container.innerHTML = html;
-        }
-
-        // ==================== NOTIFICATIONS ====================
-        function showNotification(message) {
-            const panel = document.getElementById('notificationsPanel');
-            const list = document.getElementById('notificationsList');
-            
-            const notif = document.createElement('div');
-            notif.className = 'glass-card rounded-lg p-3 text-sm animate-pulse';
-            notif.innerHTML = `<i class="fa-solid fa-bell text-green-400 mr-2"></i>${message}`;
-            
-            list.insertBefore(notif, list.firstChild);
-            
-            const count = list.children.length;
-            document.getElementById('notifBadge').innerText = count;
-            document.getElementById('notifBadge').classList.remove('hidden');
-            
-            panel.classList.remove('hidden');
-            
-            setTimeout(() => {
-                panel.classList.add('hidden');
-            }, 5000);
-        }
-
-        function loadNotifications() {
-            const list = document.getElementById('notificationsList');
-            const dayNum = getDayNumber();
-            
-            let notifs = [];
-            
-            if (dayNum === 1) notifs.push('🎯 Bienvenue dans le challenge J90 !');
-            if (dayNum === 30) notifs.push('🎉 Phase 1 terminée ! Passe en Phase 2 !');
-            if (dayNum === 60) notifs.push('🔥 Phase 2 terminée ! Dernière ligne droite !');
-            if (calculateStreak() >= 7) notifs.push('🔥 Streak de 7 jours ! Continue comme ça !');
-            
-            const todayKey = getTodayKey();
-            const todayLog = appState.dailyLogs[todayKey];
-            if (todayLog && !todayLog.evening && new Date().getHours() >= 20) {
-                notifs.push('⚠️ Session du soir pas encore faite !');
-            }
-            
-            list.innerHTML = notifs.map(n => `
-                <div class="glass-card rounded-lg p-3 text-sm">
-                    ${n}
-                </div>
-            `).join('');
-            
-            document.getElementById('notifBadge').innerText = notifs.length;
-            if (notifs.length > 0) {
-                document.getElementById('notifBadge').classList.remove('hidden');
-            }
-        }
-
-        // ==================== WEEKLY REPORT PDF ====================
-        async function generateWeeklyReport() {
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
-            
-            const dayNum = getDayNumber();
-            const weekScore = calculateWeeklyScore();
-            const logs = Object.values(appState.dailyLogs);
-            const totalMinutes = logs.reduce((sum, l) => sum + (l.duration || 0), 0);
-            const completedDays = logs.filter(l => l.morning || l.evening).length;
-            
-            doc.setFillColor(15, 23, 42);
-            doc.rect(0, 0, 210, 40, 'F');
-            doc.setTextColor(34, 197, 94);
-            doc.setFontSize(24);
-            doc.text('RAPPORT HEBDOMADAIRE', 105, 20, { align: 'center' });
-            doc.setTextColor(255, 255, 255);
-            doc.setFontSize(12);
-            doc.text(`Challenge Pharmacien Expert - Jour ${dayNum}/90`, 105, 30, { align: 'center' });
-            
-            doc.setTextColor(0, 0, 0);
-            doc.setFontSize(14);
-            doc.text('📊 Statistiques de la Semaine', 20, 55);
-            
-            doc.setFontSize(12);
-            doc.text(`• Score Discipline: ${weekScore}/10`, 20, 65);
-            doc.text(`• Total Minutes: ${totalMinutes} min`, 20, 75);
-            doc.text(`• Jours Complétés: ${completedDays}`, 20, 85);
-            doc.text(`• Niveau Actuel: ${appState.level}`, 20, 95);
-            doc.text(`• Badges Débloqués: ${appState.badges.length}`, 20, 105);
-            
-            doc.setFontSize(14);
-            doc.text('📝 Auto-Évaluation', 20, 125);
-            
-            const lastEval = appState.weeklyEvaluations[appState.weeklyEvaluations.length - 1];
-            if (lastEval) {
-                doc.setFontSize(12);
-                doc.text(`Respect 60min/jour: ${lastEval.scores[0]}/10`, 20, 135);
-                doc.text(`Production: ${lastEval.scores[1]}/10`, 20, 145);
-                doc.text(`Progression: ${lastEval.scores[2]}/10`, 20, 155);
-                doc.text(`Total: ${lastEval.total}/30`, 20, 165);
-                
-                if (lastEval.total < 21) {
-                    doc.setTextColor(239, 68, 68);
-                    doc.text('⚠️ Correction immédiate requise !', 20, 175);
-                } else {
-                    doc.setTextColor(34, 197, 94);
-                    doc.text('✅ Semaine réussie !', 20, 175);
-                }
-            } else {
-                doc.setTextColor(100, 100, 100);
-                doc.text('Aucune évaluation enregistrée', 20, 135);
-            }
-            
-            doc.setTextColor(0, 0, 0);
-            doc.setFontSize(14);
-            doc.text('💡 Recommandations', 20, 195);
-            
-            doc.setFontSize(11);
-            const recommendations = [];
-            if (weekScore < 7) recommendations.push('• Augmenter le temps de focus quotidien');
-            if (totalMinutes < 420) recommendations.push('• Atteindre minimum 60min/jour');
-            if (appState.badges.length < 3) recommendations.push('• Viser les premiers badges');
-            if (recommendations.length === 0) recommendations.push('• Continuer sur cette lancée !');
-            
-            recommendations.forEach((rec, i) => {
-                doc.text(rec, 20, 205 + (i * 10));
-            });
-            
-            doc.setTextColor(100, 100, 100);
-            doc.setFontSize(10);
-            doc.text(`Généré le ${new Date().toLocaleDateString('fr-FR')}`, 105, 280, { align: 'center' });
-            
-            doc.save(`rapport-semaine-j${dayNum}.pdf`);
-        }
-
-        // ==================== EVENT LISTENERS ====================
-        document.getElementById('focusSlider').addEventListener('input', function() {
-            document.getElementById('focusValue').innerText = `${this.value}/5`;
-        });
-
-        // Check if install was dismissed
-        if (localStorage.getItem('pwaInstallDismissed') === 'true') {
-            document.getElementById('installBanner').style.display = 'none';
-        }
-
-        // Initialize
-        init();
-    </script>
+    <!-- Custom Scripts -->
+    <script src="js/script.js"></script>
 </body>
 </html>
-
-
-
-    <script>
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('./service-worker.js')
-                    .then(reg => console.log('Service Worker enregistré !', reg))
-                    .catch(err => console.log('Erreur d\'enregistrement du Service Worker', err));
-            });
-        }
-    </script>
-                        </body>
-                        </html>
-                    
-
