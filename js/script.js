@@ -191,6 +191,9 @@ function updateUI() {
     if (document.getElementById('userNameSidebar')) {
         document.getElementById('userNameSidebar').innerText = appState.contractName || 'Utilisateur';
     }
+    if (document.getElementById('userInitialSidebar')) {
+        document.getElementById('userInitialSidebar').innerText = appState.contractName ? appState.contractName.charAt(0).toUpperCase() : 'U';
+    }
     if (document.getElementById('userLevel')) document.getElementById('userLevel').innerText = appState.level;
     if (document.getElementById('currentLevelDisplay')) document.getElementById('currentLevelDisplay').innerText = appState.level;
     
