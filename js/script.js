@@ -260,8 +260,15 @@ function showSection(sectionId) {
 function toggleSidebar() {
     const sidebar = document.getElementById('sidebar');
     const overlay = document.getElementById('sidebarOverlay');
-    sidebar.classList.toggle('open');
-    overlay.classList.toggle('hidden');
+    const mainContent = document.querySelector('.main-content');
+
+    if (window.innerWidth <= 768) {
+        sidebar.classList.toggle('open');
+        overlay.classList.toggle('hidden');
+    } else {
+        sidebar.classList.toggle('collapsed');
+        mainContent.classList.toggle('expanded');
+    }
 }
 
 // ==================== JOURNAL ====================
