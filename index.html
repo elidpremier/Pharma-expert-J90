@@ -46,13 +46,18 @@
     </div>
 
     <!-- Sidebar Navigation -->
-    <aside id="sidebar" class="sidebar w-64 glass-panel h-screen fixed left-0 top-0 flex flex-col z-50">
-        <div class="p-6 border-b border-slate-700">
-            <h1 class="font-bold text-lg text-white">
-                <i class="fa-solid fa-pills text-green-400 mr-2"></i>
-                PHARMA EXPERT
-            </h1>
-            <p class="text-xs text-slate-400 mt-1">Challenge 90 Jours</p>
+    <aside id="sidebar" class="sidebar w-64 glass-panel h-screen fixed flex flex-col z-50">
+        <div class="p-6 border-b border-slate-700 flex justify-between items-center">
+            <div>
+                <h1 class="font-bold text-lg text-white">
+                    <i class="fa-solid fa-pills text-green-400 mr-2"></i>
+                    PHARMA EXPERT
+                </h1>
+                <p class="text-xs text-slate-400 mt-1">Challenge 90 Jours</p>
+            </div>
+            <button onclick="toggleSidebar()" class="md:hidden text-slate-400 hover:text-white transition-colors">
+                <i class="fa-solid fa-xmark text-xl"></i>
+            </button>
         </div>
         
         <nav class="flex-1 py-4 overflow-y-auto">
@@ -112,7 +117,7 @@
     <main class="main-content flex-1 md:ml-64 min-h-screen p-4 md:p-8">
         <!-- Header -->
         <header class="flex justify-between items-center mb-8">
-            <button onclick="toggleSidebar()" class="md:hidden p-2 text-slate-300">
+            <button onclick="toggleSidebar()" class="p-2 text-slate-300 hover:text-white transition-colors">
                 <i class="fa-solid fa-bars text-xl"></i>
             </button>
             <div>
