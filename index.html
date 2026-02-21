@@ -71,15 +71,7 @@
             </a>
             <a href="#" onclick="showSection('journal')" class="nav-item flex items-center gap-3 px-6 py-3 text-sm text-slate-300">
                 <i class="fa-solid fa-book-open w-5"></i>
-                <span>Journal</span>
-            </a>
-            <a href="#" onclick="showSection('goals')" class="nav-item flex items-center gap-3 px-6 py-3 text-sm text-slate-300">
-                <i class="fa-solid fa-target w-5"></i>
-                <span>Objectifs</span>
-            </a>
-            <a href="#" onclick="showSection('stats')" class="nav-item flex items-center gap-3 px-6 py-3 text-sm text-slate-300">
-                <i class="fa-solid fa-chart-line w-5"></i>
-                <span>Performance</span>
+                <span>Suivi & Journal</span>
             </a>
             <a href="#" onclick="showSection('rewards')" class="nav-item flex items-center gap-3 px-6 py-3 text-sm text-slate-300">
                 <i class="fa-solid fa-trophy w-5"></i>
@@ -102,7 +94,7 @@
                         U
                     </div>
                     <div>
-                        <p class="text-sm font-semibold text-white">Utilisateur</p>
+                        <p id="userNameSidebar" class="text-sm font-semibold text-white">Utilisateur</p>
                         <p class="text-xs text-slate-400">Niveau <span id="userLevel">1</span></p>
                     </div>
                 </div>
@@ -209,6 +201,55 @@
                     <h3 class="text-lg font-bold mb-4">Heatmap d'Activité</h3>
                     <div id="heatmap" class="flex flex-wrap gap-1"></div>
                 </div>
+
+                <!-- Stats & Charts (Merged from Performance) -->
+                <div class="grid md:grid-cols-2 gap-6 mt-6">
+                    <div class="glass-panel rounded-2xl p-6">
+                        <h3 class="text-lg font-bold mb-4">Répartition du Temps</h3>
+                        <div class="h-64">
+                            <canvas id="timeChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="glass-panel rounded-2xl p-6">
+                        <h3 class="text-lg font-bold mb-4">Évolution Discipline</h3>
+                        <div class="h-64">
+                            <canvas id="disciplineChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-2xl p-6 mt-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-bold">Évaluation Hebdomadaire</h3>
+                        <button onclick="generateWeeklyReport()" class="px-4 py-2 bg-blue-500/20 text-blue-400 rounded-lg text-sm font-bold hover:bg-blue-500/30 transition">
+                            <i class="fa-solid fa-file-pdf mr-2"></i>Exporter PDF
+                        </button>
+                    </div>
+
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-xs text-slate-400 uppercase mb-1">Respect 60min/jour (1-10)</label>
+                                <input type="number" id="eval1" min="0" max="10" value="0" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-400 uppercase mb-1">Qualité Production (1-10)</label>
+                                <input type="number" id="eval2" min="0" max="10" value="0" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white">
+                            </div>
+                            <div>
+                                <label class="block text-xs text-slate-400 uppercase mb-1">Sentiment Progression (1-10)</label>
+                                <input type="number" id="eval3" min="0" max="10" value="0" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white">
+                            </div>
+                            <button onclick="saveWeeklyEvaluation()" class="w-full py-2 bg-blue-500 text-white font-bold rounded-lg">Valider la semaine</button>
+                        </div>
+
+                        <div class="md:col-span-2 glass-card rounded-xl p-6 flex flex-col items-center justify-center">
+                            <p class="text-sm text-slate-400 mb-2">Score Global Semaine</p>
+                            <p id="totalScore" class="text-5xl font-black text-white">0/30</p>
+                            <p id="evalFeedback" class="text-sm mt-4 text-slate-400 text-center italic">"L'excellence est une habitude, pas un acte."</p>
+                        </div>
+                    </div>
+                </div>
             </section>
 
             <!-- PLANNING SECTION -->
@@ -310,9 +351,9 @@
                 </div>
             </section>
 
-            <!-- JOURNAL SECTION -->
+            <!-- JOURNAL & GOALS SECTION (Merged) -->
             <section id="journalSection" class="section hidden">
-                <div class="grid md:grid-cols-2 gap-6">
+                <div class="grid md:grid-cols-2 gap-6 mb-6">
                     <!-- Daily Entry Form -->
                     <div class="glass-panel rounded-2xl p-6">
                         <h3 class="text-lg font-bold mb-4">Journal du Jour</h3>
@@ -369,10 +410,7 @@
                         </div>
                     </div>
                 </div>
-            </section>
 
-            <!-- GOALS SECTION -->
-            <section id="goalsSection" class="section hidden">
                 <div class="glass-panel rounded-2xl p-6 mb-6">
                     <div class="flex justify-between items-center mb-6">
                         <h3 class="text-lg font-bold">Objectifs du Challenge</h3>
@@ -417,57 +455,6 @@
                                 <p class="text-xs text-slate-400">Cours, fiches, stylos, ordinateur chargé</p>
                             </div>
                         </label>
-                    </div>
-                </div>
-            </section>
-
-            <!-- STATS SECTION -->
-            <section id="statsSection" class="section hidden">
-                <div class="grid md:grid-cols-2 gap-6">
-                    <div class="glass-panel rounded-2xl p-6">
-                        <h3 class="text-lg font-bold mb-4">Répartition du Temps</h3>
-                        <div class="h-64">
-                            <canvas id="timeChart"></canvas>
-                        </div>
-                    </div>
-                    <div class="glass-panel rounded-2xl p-6">
-                        <h3 class="text-lg font-bold mb-4">Évolution Discipline</h3>
-                        <div class="h-64">
-                            <canvas id="disciplineChart"></canvas>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="glass-panel rounded-2xl p-6 mt-6">
-                    <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-lg font-bold">Évaluation Hebdomadaire</h3>
-                        <button onclick="generateWeeklyReport()" class="px-4 py-2 bg-blue-500/20 text-blue-400 rounded-lg text-sm font-bold hover:bg-blue-500/30 transition">
-                            <i class="fa-solid fa-file-pdf mr-2"></i>Exporter PDF
-                        </button>
-                    </div>
-                    
-                    <div class="grid md:grid-cols-3 gap-6">
-                        <div class="space-y-4">
-                            <div>
-                                <label class="block text-xs text-slate-400 uppercase mb-1">Respect 60min/jour (1-10)</label>
-                                <input type="number" id="eval1" min="0" max="10" value="0" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white">
-                            </div>
-                            <div>
-                                <label class="block text-xs text-slate-400 uppercase mb-1">Qualité Production (1-10)</label>
-                                <input type="number" id="eval2" min="0" max="10" value="0" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white">
-                            </div>
-                            <div>
-                                <label class="block text-xs text-slate-400 uppercase mb-1">Sentiment Progression (1-10)</label>
-                                <input type="number" id="eval3" min="0" max="10" value="0" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white">
-                            </div>
-                            <button onclick="saveWeeklyEvaluation()" class="w-full py-2 bg-blue-500 text-white font-bold rounded-lg">Valider la semaine</button>
-                        </div>
-                        
-                        <div class="md:col-span-2 glass-card rounded-xl p-6 flex flex-col items-center justify-center">
-                            <p class="text-sm text-slate-400 mb-2">Score Global Semaine</p>
-                            <p id="totalScore" class="text-5xl font-black text-white">0/30</p>
-                            <p id="evalFeedback" class="text-sm mt-4 text-slate-400 text-center italic">"L'excellence est une habitude, pas un acte."</p>
-                        </div>
                     </div>
                 </div>
             </section>

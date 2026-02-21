@@ -77,6 +77,12 @@ function init() {
         if (wakeLock !== null && document.visibilityState === 'visible') {
             await requestWakeLock();
         }
+        // Vérifier si le timer a fini pendant l'absence
+        if (focusRunning && document.visibilityState === 'visible' && focusEndTime) {
+            if (Date.now() >= focusEndTime) {
+                completeFocusSession();
+            }
+        }
     });
 }
 
@@ -182,6 +188,9 @@ function updateUI() {
     const weeklyScore = calculateWeeklyScore();
     if (document.getElementById('disciplineScore')) document.getElementById('disciplineScore').innerText = `${weeklyScore}/10`;
 
+    if (document.getElementById('userNameSidebar')) {
+        document.getElementById('userNameSidebar').innerText = appState.contractName || 'Utilisateur';
+    }
     if (document.getElementById('userLevel')) document.getElementById('userLevel').innerText = appState.level;
     if (document.getElementById('currentLevelDisplay')) document.getElementById('currentLevelDisplay').innerText = appState.level;
     
@@ -235,25 +244,35 @@ function calculateWeeklyScore() {
 // ==================== NAVIGATION ====================
 function showSection(sectionId) {
     document.querySelectorAll('.section').forEach(s => s.classList.add('hidden'));
-    document.getElementById(`${sectionId}Section`).classList.remove('hidden');
+
+    // Redirect merged sections
+    let targetSectionId = sectionId;
+    if (sectionId === 'goals') targetSectionId = 'journal';
+    if (sectionId === 'stats') targetSectionId = 'dashboard';
+
+    const targetSection = document.getElementById(`${targetSectionId}Section`);
+    if (targetSection) targetSection.classList.remove('hidden');
     
     document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    event.currentTarget.classList.add('active');
+    if (window.event && window.event.currentTarget) {
+        window.event.currentTarget.classList.add('active');
+    }
     
     const titles = {
         dashboard: 'Dashboard',
         planning: 'Planning',
-        journal: 'Journal',
-        goals: 'Objectifs',
-        stats: 'Performance',
+        journal: 'Suivi & Journal',
         rewards: 'Récompenses',
         contract: 'Contrat',
         focus: 'Mode Focus'
     };
-    document.getElementById('sectionTitle').innerText = titles[sectionId];
+    document.getElementById('sectionTitle').innerText = titles[sectionId] || titles[targetSectionId] || 'Pharma Expert';
     
     if (window.innerWidth < 768) {
-        toggleSidebar();
+        const sidebar = document.getElementById('sidebar');
+        if (sidebar && sidebar.classList.contains('open')) {
+            toggleSidebar();
+        }
     }
 }
 
@@ -435,6 +454,11 @@ async function toggleFocusTimer() {
         document.getElementById('focusToggleBtn').innerHTML = '<i class="fa-solid fa-play mr-2"></i>Reprendre';
         releaseWakeLock();
     } else {
+        // Demander la permission pour les notifications
+        if ("Notification" in window && Notification.permission !== "granted") {
+            Notification.requestPermission();
+        }
+
         // Démarrer / Reprendre
         focusRunning = true;
         focusEndTime = Date.now() + (focusTimeLeft * 1000);
@@ -456,6 +480,8 @@ async function toggleFocusTimer() {
 }
 
 function completeFocusSession() {
+    if (!focusRunning && !focusEndTime) return; // Éviter les doubles appels
+
     clearInterval(focusTimerInterval);
     focusRunning = false;
     focusEndTime = null;
@@ -479,6 +505,14 @@ function completeFocusSession() {
     updateUI();
     renderSessionLog();
     
+    // Notification système
+    if ("Notification" in window && Notification.permission === "granted") {
+        new Notification("Pharma Expert", {
+            body: `Session Focus de ${sessionDuration} min terminée ! +20 XP`,
+            icon: "assets/icons/icon-192.png"
+        });
+    }
+
     // Notification sonore simple
     try {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -490,7 +524,9 @@ function completeFocusSession() {
         oscillator.stop(audioCtx.currentTime + 0.5);
     } catch(e) {}
     
-    alert('Session terminée ! +20 XP');
+    setTimeout(() => {
+        alert(`Session terminée ! +20 XP`);
+    }, 100);
 }
 
 function updateFocusTimerDisplay() {
