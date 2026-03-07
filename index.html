@@ -106,10 +106,10 @@
     </aside>
 
     <!-- Main Content -->
-    <main class="main-content flex-1 md:ml-64 min-h-screen p-4 md:p-8">
+    <main class="main-content flex-1 md:ml-64 min-h-screen p-4 md:p-8 pb-24 md:pb-8">
         <!-- Header -->
         <header class="flex justify-between items-center mb-8">
-            <button onclick="toggleSidebar()" class="p-2 text-slate-300 hover:text-white transition-colors">
+            <button id="sidebar-toggle" onclick="toggleSidebar()" class="p-2 text-slate-300 hover:text-white transition-colors">
                 <i class="fa-solid fa-bars text-xl"></i>
             </button>
             <div>
@@ -131,6 +131,31 @@
         <div id="contentArea">
             <!-- DASHBOARD SECTION -->
             <section id="dashboardSection" class="section">
+                <!-- Live Planning Widget -->
+                <div class="glass-panel rounded-2xl p-4 mb-6 border-l-4 border-green-500 flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 rounded-full bg-green-500/20 flex items-center justify-center text-green-400">
+                            <i class="fa-solid fa-clock-rotate-left text-xl"></i>
+                        </div>
+                        <div>
+                            <p class="text-xs text-slate-400 uppercase font-bold tracking-wider">Action Actuelle</p>
+                            <p id="currentTaskName" class="text-white font-bold">Chargement du planning...</p>
+                        </div>
+                    </div>
+                    <div class="flex-1 max-w-md">
+                        <div class="flex justify-between text-xs mb-1">
+                            <span class="text-slate-400">Progression Journée</span>
+                            <span id="dayProgressPercent" class="text-green-400 font-bold">0%</span>
+                        </div>
+                        <div class="w-full bg-slate-700 rounded-full h-2">
+                            <div id="dayProgressBar" class="bg-green-500 h-2 rounded-full transition-all duration-500" style="width: 0%"></div>
+                        </div>
+                    </div>
+                    <button onclick="showSection('planning')" class="text-xs font-bold text-slate-400 hover:text-white transition uppercase">
+                        Voir tout <i class="fa-solid fa-chevron-right ml-1"></i>
+                    </button>
+                </div>
+
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                     <!-- Progress Card -->
                     <div class="glass-panel rounded-2xl p-6 flex flex-col items-center justify-center text-center">
@@ -207,20 +232,20 @@
                     <h3 class="text-lg font-bold mb-6">Indicateurs de Progression Hebdomadaire</h3>
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div class="glass-card rounded-xl p-4 text-center">
-                            <p class="text-2xl font-black text-green-400">100%</p>
-                            <p class="text-[10px] text-slate-400 uppercase mt-1">Cours Révisés</p>
+                            <p id="kpi-completion" class="text-2xl font-black text-green-400">0%</p>
+                            <p class="text-[10px] text-slate-400 uppercase mt-1">Routine Complétée</p>
                         </div>
                         <div class="glass-card rounded-xl p-4 text-center">
-                            <p class="text-2xl font-black text-blue-400">2-3</p>
-                            <p class="text-[10px] text-slate-400 uppercase mt-1">Articles Lus</p>
+                            <p id="kpi-focus" class="text-2xl font-black text-blue-400">0/5</p>
+                            <p class="text-[10px] text-slate-400 uppercase mt-1">Focus Moyen</p>
                         </div>
                         <div class="glass-card rounded-xl p-4 text-center">
-                            <p class="text-2xl font-black text-purple-400">4-5h</p>
-                            <p class="text-[10px] text-slate-400 uppercase mt-1">Pratique R</p>
+                            <p id="kpi-sessions" class="text-2xl font-black text-purple-400">0</p>
+                            <p class="text-[10px] text-slate-400 uppercase mt-1">Sessions Deep Work</p>
                         </div>
                         <div class="glass-card rounded-xl p-4 text-center">
-                            <p class="text-2xl font-black text-orange-400">10-15</p>
-                            <p class="text-[10px] text-slate-400 uppercase mt-1">Pages de Notes</p>
+                            <p id="kpi-streak" class="text-2xl font-black text-orange-400">0j</p>
+                            <p class="text-[10px] text-slate-400 uppercase mt-1">Série Actuelle</p>
                         </div>
                     </div>
                 </div>
@@ -284,79 +309,9 @@
                             Objectif : Chercheur Académique
                         </div>
                     </div>
-                    
-                    <div class="space-y-3">
-                        <div class="flex items-center gap-4 p-4 glass-card rounded-xl">
-                            <div class="w-20 text-sm font-mono text-slate-400">06h00</div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-white">Réveil & Focus</p>
-                                <p class="text-xs text-slate-400">Hydratation, Préparation, Zéro écran</p>
-                            </div>
-                            <i class="fa-solid fa-sun text-orange-400"></i>
-                        </div>
 
-                        <div class="flex items-center gap-4 p-4 glass-card rounded-xl border-l-4 border-yellow-500">
-                            <div class="w-20 text-sm font-mono text-slate-400">06h15</div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-white">Prélecture Scientifique (30 min)</p>
-                                <p class="text-xs text-slate-400">Titres, concepts, mots-clés (dissolution, formulation...)</p>
-                            </div>
-                            <i class="fa-solid fa-book-open-reader text-yellow-400"></i>
-                        </div>
-
-                        <div class="flex items-center gap-4 p-4 glass-card rounded-xl border-l-4 border-yellow-500">
-                            <div class="w-20 text-sm font-mono text-slate-400">06h45</div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-white">Révision J-1 (30 min)</p>
-                                <p class="text-xs text-slate-400">Mini fiche synthèse, correction incompréhensions</p>
-                            </div>
-                            <i class="fa-solid fa-rotate-left text-yellow-500"></i>
-                        </div>
-
-                        <div class="flex items-center gap-4 p-4 glass-card rounded-xl border-l-4 border-blue-500">
-                            <div class="w-20 text-sm font-mono text-slate-400">08h00 – 13h00</div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-white">Cours Master (Prise de notes active)</p>
-                                <p class="text-xs text-slate-400">Galénique, Biopharma, Ingénierie. Pourquoi ce phénomène ?</p>
-                            </div>
-                            <i class="fa-solid fa-graduation-cap text-blue-400"></i>
-                        </div>
-
-                        <div class="flex items-center gap-4 p-4 glass-card rounded-xl border-l-4 border-green-500">
-                            <div class="w-20 text-sm font-mono text-slate-400">14h30 – 16h00</div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-white">Bloc Principal : Apprentissage (1h30)</p>
-                                <p class="text-xs text-slate-400">Compréhension scientifique & Reconstruction active (mémoire)</p>
-                            </div>
-                            <i class="fa-solid fa-brain text-green-400"></i>
-                        </div>
-
-                        <div class="flex items-center gap-4 p-4 glass-card rounded-xl border-l-4 border-cyan-500">
-                            <div class="w-20 text-sm font-mono text-slate-400">16h30 – 17h30</div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-white">Approfondissement (1h)</p>
-                                <p class="text-xs text-slate-400">Articles scientifiques, Ouvrages, Modèles biopharma</p>
-                            </div>
-                            <i class="fa-solid fa-microscope text-cyan-400"></i>
-                        </div>
-
-                        <div class="flex items-center gap-4 p-4 glass-card rounded-xl border-l-4 border-purple-500">
-                            <div class="w-20 text-sm font-mono text-slate-400">20h00 – 21h00</div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-white">Analyse de Données : R (1h)</p>
-                                <p class="text-xs text-slate-400">Stats, Régression, ANOVA reliés au pharma</p>
-                            </div>
-                            <i class="fa-solid fa-code text-purple-400"></i>
-                        </div>
-
-                        <div class="flex items-center gap-4 p-4 glass-card rounded-xl">
-                            <div class="w-20 text-sm font-mono text-slate-400">21h00</div>
-                            <div class="flex-1">
-                                <p class="font-semibold text-white">Organisation & Planification</p>
-                                <p class="text-xs text-slate-400">Classement notes, Fichiers, J+1</p>
-                            </div>
-                            <i class="fa-solid fa-list-check text-slate-500"></i>
-                        </div>
+                    <div id="planningTasksContainer" class="space-y-3">
+                        <!-- Tasks loaded by JS -->
                     </div>
 
                     <!-- Weekly Routine -->
@@ -440,9 +395,14 @@
                                 <textarea id="journalNotes" rows="3" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2 text-white focus:outline-none focus:border-green-500" placeholder="Qu'avez-vous accompli aujourd'hui ?"></textarea>
                             </div>
 
-                            <button onclick="saveJournalEntry()" class="w-full py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl transition shadow-lg shadow-green-500/20">
-                                Enregistrer la journée
-                            </button>
+                            <div class="flex gap-2">
+                                <button onclick="autoFillJournal()" class="flex-1 py-2 bg-blue-500/20 text-blue-400 text-xs font-bold rounded-lg border border-blue-500/30 hover:bg-blue-500/30 transition">
+                                    <i class="fa-solid fa-magic mr-1"></i>Auto-remplir
+                                </button>
+                                <button onclick="saveJournalEntry()" class="flex-[2] py-3 bg-green-500 hover:bg-green-600 text-white font-bold rounded-xl transition shadow-lg shadow-green-500/20">
+                                    Enregistrer la journée
+                                </button>
+                            </div>
                         </div>
                     </div>
 
@@ -668,6 +628,32 @@
 
     <!-- Overlay for mobile sidebar -->
     <div id="sidebarOverlay" onclick="toggleSidebar()" class="fixed inset-0 bg-black/50 z-40 hidden md:hidden"></div>
+
+    <!-- Bottom Navigation for Mobile -->
+    <nav class="md:hidden fixed bottom-0 left-0 right-0 glass-panel border-t border-slate-700 px-6 py-3 flex justify-between items-center z-40 pb-safe">
+        <button onclick="showSection('dashboard')" class="mobile-nav-item active flex flex-col items-center gap-1 text-slate-400">
+            <i class="fa-solid fa-gauge text-lg"></i>
+            <span class="text-[10px] font-bold uppercase">Dash</span>
+        </button>
+        <button onclick="showSection('planning')" class="mobile-nav-item flex flex-col items-center gap-1 text-slate-400">
+            <i class="fa-solid fa-calendar-days text-lg"></i>
+            <span class="text-[10px] font-bold uppercase">Plan</span>
+        </button>
+        <button onclick="showSection('focus')" class="mobile-nav-item flex flex-col items-center gap-1 text-slate-400">
+            <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center -mt-8 shadow-lg shadow-green-500/40 border-4 border-[#0f172a]">
+                <i class="fa-solid fa-stopwatch text-white text-xl"></i>
+            </div>
+            <span class="text-[10px] font-bold uppercase mt-1">Focus</span>
+        </button>
+        <button onclick="showSection('journal')" class="mobile-nav-item flex flex-col items-center gap-1 text-slate-400">
+            <i class="fa-solid fa-book-open text-lg"></i>
+            <span class="text-[10px] font-bold uppercase">Suivi</span>
+        </button>
+        <button onclick="showSection('rewards')" class="mobile-nav-item flex flex-col items-center gap-1 text-slate-400">
+            <i class="fa-solid fa-trophy text-lg"></i>
+            <span class="text-[10px] font-bold uppercase">Prix</span>
+        </button>
+    </nav>
 
     <!-- Custom Scripts -->
     <script src="js/script.js"></script>

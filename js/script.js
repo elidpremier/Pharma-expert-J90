@@ -13,8 +13,20 @@ let appState = {
     level: 1,
     xp: 0,
     weeklyEvaluations: [],
-    requirements: { req1: false, req2: false, req3: false, req4: false }
+    requirements: { req1: false, req2: false, req3: false, req4: false },
+    dailyTasks: {} // Format: { "YYYY-MM-DD": { taskIndex: true } }
 };
+
+const ACADEMIC_PLANNING = [
+    { start: "06:00", end: "06:15", title: "Réveil & Focus", desc: "Hydratation, Préparation, Zéro écran", icon: "fa-sun", color: "orange" },
+    { start: "06:15", end: "06:45", title: "Prélecture Scientifique", desc: "Titres, concepts, mots-clés", icon: "fa-book-open-reader", color: "yellow" },
+    { start: "06:45", end: "07:15", title: "Révision J-1", desc: "Mini fiche synthèse, correction", icon: "fa-rotate-left", color: "yellow" },
+    { start: "08:00", end: "13:00", title: "Cours Master", desc: "Prise de notes active", icon: "fa-graduation-cap", color: "blue" },
+    { start: "14:30", end: "16:00", title: "Bloc Principal : Apprentissage", desc: "Compréhension & Reconstruction", icon: "fa-brain", color: "green" },
+    { start: "16:30", end: "17:30", title: "Approfondissement", desc: "Articles, Ouvrages, Modèles", icon: "fa-microscope", color: "cyan" },
+    { start: "20:00", end: "21:00", title: "Analyse de Données : R", desc: "Stats, Régression, ANOVA", icon: "fa-code", color: "purple" },
+    { start: "21:00", end: "22:00", title: "Organisation & Planification", desc: "Classement notes, J+1", icon: "fa-list-check", color: "slate" }
+];
 
 let focusTimerInterval = null;
 let focusTimeLeft = 1500;
@@ -45,6 +57,7 @@ function init() {
     initCharts();
     renderBadges();
     renderGoals();
+    renderPlanningTasks();
     renderJournalHistory();
     renderHeatmap();
     
@@ -208,6 +221,172 @@ function updateUI() {
             weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' 
         });
     }
+
+    updateLivePlanning();
+    updateDashboardKPIs();
+}
+
+function updateDashboardKPIs() {
+    let totalTasks = 0;
+    let completedTasks = 0;
+    let totalFocus = 0;
+    let focusCount = 0;
+    let totalSessions = 0;
+
+    const today = new Date();
+    for (let i = 0; i < 7; i++) {
+        const d = new Date(today);
+        d.setDate(d.getDate() - i);
+        const key = d.toISOString().split('T')[0];
+
+        // Completion
+        const dayTasks = appState.dailyTasks[key] || {};
+        totalTasks += ACADEMIC_PLANNING.length;
+        completedTasks += Object.values(dayTasks).filter(v => v === true).length;
+
+        // Focus & Sessions
+        const log = appState.dailyLogs[key];
+        if (log && log.focus) {
+            totalFocus += log.focus;
+            focusCount++;
+        }
+
+        const sessions = appState.sessions[key] || [];
+        totalSessions += sessions.length;
+    }
+
+    if (document.getElementById('kpi-completion')) {
+        const completionRate = totalTasks > 0 ? Math.round((completedTasks / totalTasks) * 100) : 0;
+        document.getElementById('kpi-completion').innerText = `${completionRate}%`;
+    }
+    if (document.getElementById('kpi-focus')) {
+        const avgFocus = focusCount > 0 ? (totalFocus / focusCount).toFixed(1) : '0';
+        document.getElementById('kpi-focus').innerText = `${avgFocus}/5`;
+    }
+    if (document.getElementById('kpi-sessions')) {
+        document.getElementById('kpi-sessions').innerText = totalSessions;
+    }
+    if (document.getElementById('kpi-streak')) {
+        document.getElementById('kpi-streak').innerText = `${calculateStreak()}j`;
+    }
+}
+
+function renderPlanningTasks() {
+    const container = document.getElementById('planningTasksContainer');
+    if (!container) return;
+
+    const todayKey = getTodayKey();
+    const dayTasks = appState.dailyTasks[todayKey] || {};
+
+    container.innerHTML = ACADEMIC_PLANNING.map((task, index) => {
+        const isCompleted = !!dayTasks[index];
+        const borderColors = {
+            orange: 'border-orange-500',
+            yellow: 'border-yellow-500',
+            blue: 'border-blue-500',
+            green: 'border-green-500',
+            cyan: 'border-cyan-500',
+            purple: 'border-purple-500',
+            slate: 'border-slate-500'
+        };
+        const iconColors = {
+            orange: 'text-orange-400',
+            yellow: 'text-yellow-400',
+            blue: 'text-blue-400',
+            green: 'text-green-400',
+            cyan: 'text-cyan-400',
+            purple: 'text-purple-400',
+            slate: 'text-slate-400'
+        };
+
+        return `
+            <div onclick="togglePlanningTask(${index})" class="flex items-center gap-4 p-4 glass-card rounded-xl border-l-4 ${borderColors[task.color]} cursor-pointer transition-all hover:translate-x-1 ${isCompleted ? 'opacity-50 grayscale' : ''}">
+                <div class="w-6 h-6 rounded-full border-2 ${isCompleted ? 'bg-green-500 border-green-500' : 'border-slate-600'} flex items-center justify-center shrink-0">
+                    ${isCompleted ? '<i class="fa-solid fa-check text-white text-[10px]"></i>' : ''}
+                </div>
+                <div class="w-20 text-sm font-mono text-slate-400 shrink-0">${task.start}</div>
+                <div class="flex-1">
+                    <p class="font-semibold text-white ${isCompleted ? 'line-through' : ''}">${task.title}</p>
+                    <p class="text-[10px] text-slate-400">${task.desc}</p>
+                </div>
+                <i class="fa-solid ${task.icon} ${iconColors[task.color]}"></i>
+            </div>
+        `;
+    }).join('');
+}
+
+function togglePlanningTask(index) {
+    const todayKey = getTodayKey();
+    if (!appState.dailyTasks[todayKey]) appState.dailyTasks[todayKey] = {};
+
+    appState.dailyTasks[todayKey][index] = !appState.dailyTasks[todayKey][index];
+
+    if (appState.dailyTasks[todayKey][index]) {
+        addXP(10);
+        showNotification(`Tâche terminée: ${ACADEMIC_PLANNING[index].title}`);
+    }
+
+    saveData();
+    renderPlanningTasks();
+    updateLivePlanning();
+}
+
+let lastNotifiedTaskIndex = -1;
+
+function updateLivePlanning() {
+    const now = new Date();
+    const currentTime = now.getHours() * 60 + now.getMinutes();
+
+    let currentTask = "Repos / Temps Libre";
+    let currentTaskIndex = -1;
+    let completedTasks = 0;
+    const todayKey = getTodayKey();
+    const dayTasks = appState.dailyTasks[todayKey] || {};
+
+    ACADEMIC_PLANNING.forEach((task, index) => {
+        const [startH, startM] = task.start.split(':').map(Number);
+        const [endH, endM] = task.end.split(':').map(Number);
+
+        const startTime = startH * 60 + startM;
+        const endTime = endH * 60 + endM;
+
+        if (currentTime >= startTime && currentTime < endTime) {
+            currentTask = task.title;
+            currentTaskIndex = index;
+        }
+
+        if (dayTasks[index]) {
+            completedTasks++;
+        }
+    });
+
+    if (document.getElementById('currentTaskName')) {
+        document.getElementById('currentTaskName').innerText = currentTask;
+    }
+
+    const progressPercent = Math.round((completedTasks / ACADEMIC_PLANNING.length) * 100);
+    if (document.getElementById('dayProgressPercent')) {
+        document.getElementById('dayProgressPercent').innerText = `${progressPercent}%`;
+    }
+    if (document.getElementById('dayProgressBar')) {
+        document.getElementById('dayProgressBar').style.width = `${progressPercent}%`;
+    }
+
+    // Notifications de transition
+    if (currentTaskIndex !== -1 && currentTaskIndex !== lastNotifiedTaskIndex) {
+        lastNotifiedTaskIndex = currentTaskIndex;
+        const task = ACADEMIC_PLANNING[currentTaskIndex];
+
+        showNotification(`Nouveau bloc : ${task.title}`);
+
+        if ("Notification" in window && Notification.permission === "granted") {
+            new Notification("Routine Pharma Expert", {
+                body: `Début du bloc : ${task.title} (${task.start})`,
+                icon: "assets/icons/icon-192.png",
+                silent: false
+            });
+        }
+    }
 }
 
 function calculateStreak() {
@@ -236,12 +415,19 @@ function calculateWeeklyScore() {
         date.setDate(date.getDate() - i);
         const key = date.toISOString().split('T')[0];
         const log = appState.dailyLogs[key];
-        if (log) {
-            total += log.focus || 3;
+        const dayTasks = appState.dailyTasks[key] || {};
+
+        const completedTasksCount = Object.values(dayTasks).filter(v => v === true).length;
+        const taskScore = (completedTasksCount / ACADEMIC_PLANNING.length) * 5; // Score / 5
+
+        if (log || completedTasksCount > 0) {
+            const focusScore = log ? log.focus : 0;
+            // Mix log focus score and task completion score
+            total += (focusScore + taskScore) / 2;
             count++;
         }
     }
-    return count > 0 ? Math.round((total / (count * 5)) * 10) : 0;
+    return count > 0 ? Math.round(((total / count) / 5) * 10) : 0;
 }
 
 // ==================== NAVIGATION ====================
@@ -255,11 +441,12 @@ function showSection(sectionId) {
 
     const targetSection = document.getElementById(`${targetSectionId}Section`);
     if (targetSection) targetSection.classList.remove('hidden');
-    
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    if (window.event && window.event.currentTarget) {
-        window.event.currentTarget.classList.add('active');
-    }
+
+    document.querySelectorAll('.nav-item, .mobile-nav-item').forEach(n => n.classList.remove('active'));
+
+    // Find and activate the correct navigation item
+    const navItems = document.querySelectorAll(`.nav-item[onclick*="showSection('${sectionId}')"], .mobile-nav-item[onclick*="showSection('${sectionId}')"]`);
+    navItems.forEach(n => n.classList.add('active'));
     
     const titles = {
         dashboard: 'Dashboard',
@@ -294,6 +481,35 @@ function toggleSidebar() {
 }
 
 // ==================== JOURNAL ====================
+function autoFillJournal() {
+    const todayKey = getTodayKey();
+    const dayTasks = appState.dailyTasks[todayKey] || {};
+    const completedTasks = ACADEMIC_PLANNING.filter((_, i) => dayTasks[i]);
+
+    if (completedTasks.length === 0) {
+        alert("Aucune tâche de planning validée pour aujourd'hui.");
+        return;
+    }
+
+    // Check sessions
+    const hasMorning = dayTasks[0] || dayTasks[1] || dayTasks[2];
+    const hasEvening = dayTasks[6] || dayTasks[7];
+
+    document.getElementById('morningSession').checked = hasMorning;
+    document.getElementById('eveningSession').checked = hasEvening;
+
+    // Focus calculation based on % tasks completed
+    const focusLevel = Math.max(1, Math.min(5, Math.ceil((completedTasks.length / ACADEMIC_PLANNING.length) * 5)));
+    document.getElementById('focusSlider').value = focusLevel;
+    document.getElementById('focusValue').innerText = `${focusLevel}/5`;
+
+    // Notes auto-generation
+    const notes = completedTasks.map(t => `- ${t.title}`).join('\n');
+    document.getElementById('journalNotes').value = `Tâches accomplies :\n${notes}`;
+
+    showNotification("Journal auto-rempli !");
+}
+
 function saveJournalEntry() {
     const date = document.getElementById('journalDate').value;
     const morning = document.getElementById('morningSession').checked;
@@ -808,6 +1024,9 @@ async function generateWeeklyReport() {
 // ==================== EVENT LISTENERS ====================
 document.addEventListener('DOMContentLoaded', () => {
     init();
+
+    // Mise à jour du planning live chaque minute
+    setInterval(updateLivePlanning, 60000);
     
     document.getElementById('focusSlider')?.addEventListener('input', function() {
         document.getElementById('focusValue').innerText = `${this.value}/5`;
