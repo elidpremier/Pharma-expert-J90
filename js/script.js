@@ -18,14 +18,16 @@ let appState = {
 };
 
 const ACADEMIC_PLANNING = [
-    { start: "06:00", end: "06:15", title: "Réveil & Focus", desc: "Hydratation, Préparation, Zéro écran", icon: "fa-sun", color: "orange" },
-    { start: "06:15", end: "06:45", title: "Prélecture Scientifique", desc: "Titres, concepts, mots-clés", icon: "fa-book-open-reader", color: "yellow" },
-    { start: "06:45", end: "07:15", title: "Révision J-1", desc: "Mini fiche synthèse, correction", icon: "fa-rotate-left", color: "yellow" },
-    { start: "08:00", end: "13:00", title: "Cours Master", desc: "Prise de notes active", icon: "fa-graduation-cap", color: "blue" },
-    { start: "14:30", end: "16:00", title: "Bloc Principal : Apprentissage", desc: "Compréhension & Reconstruction", icon: "fa-brain", color: "green" },
-    { start: "16:30", end: "17:30", title: "Approfondissement", desc: "Articles, Ouvrages, Modèles", icon: "fa-microscope", color: "cyan" },
-    { start: "20:00", end: "21:00", title: "Analyse de Données : R", desc: "Stats, Régression, ANOVA", icon: "fa-code", color: "purple" },
-    { start: "21:00", end: "22:00", title: "Organisation & Planification", desc: "Classement notes, J+1", icon: "fa-list-check", color: "slate" }
+    { start: "06:00", end: "06:15", title: "Réveil & Hydratation", desc: "Hydratation, Préparation, Éviter le téléphone", icon: "fa-sun", color: "orange" },
+    { start: "06:15", end: "06:45", title: "Prélecture Scientifique", desc: "Titres, concepts, mots-clés du cours", icon: "fa-book-open-reader", color: "yellow" },
+    { start: "06:45", end: "07:15", title: "Révision J-1", desc: "Mini fiche synthèse, correction concepts", icon: "fa-rotate-left", color: "yellow" },
+    { start: "07:15", end: "07:40", title: "Préparation Université", desc: "Transport, matériel, concentration", icon: "fa-briefcase", color: "orange" },
+    { start: "08:00", end: "13:00", title: "Cours Master", desc: "Prise de notes scientifique active", icon: "fa-graduation-cap", color: "blue" },
+    { start: "14:30", end: "16:00", title: "Bloc Principal : Apprentissage", desc: "Révision → Compréhension → Reconstruction", icon: "fa-brain", color: "green" },
+    { start: "16:00", end: "16:30", title: "Pause Repos", desc: "Repos complet et recharge", icon: "fa-leaf", color: "slate" },
+    { start: "16:30", end: "17:30", title: "Approfondissement Scientifique", desc: "Articles, Ouvrages, Modèles biopharmaceutiques", icon: "fa-microscope", color: "cyan" },
+    { start: "20:00", end: "21:00", title: "Analyse de Données : R", desc: "Manipulation, Visualisation, Régression, ANOVA", icon: "fa-code", color: "purple" },
+    { start: "21:00", end: "21:20", title: "Organisation & Planification", desc: "Classement notes, organisation fichiers, J+1", icon: "fa-list-check", color: "slate" }
 ];
 
 let focusTimerInterval = null;

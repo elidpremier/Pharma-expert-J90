@@ -304,7 +304,10 @@
             <section id="planningSection" class="section hidden">
                 <div class="glass-panel rounded-2xl p-6">
                     <div class="flex justify-between items-center mb-6">
-                        <h3 class="text-lg font-bold">Emploi du Temps Quotidien</h3>
+                        <div>
+                            <h3 class="text-lg font-bold">Routine Quotidienne Structuree</h3>
+                            <p class="text-xs text-slate-400 mt-1">Cours 8h-13h | Master Galenique, Biopharmacie, Ingenierie Pharmaceutique</p>
+                        </div>
                         <div class="text-xs font-bold text-green-400 px-3 py-1 bg-green-500/10 rounded-full border border-green-500/20">
                             Objectif : Chercheur Académique
                         </div>
@@ -318,32 +321,73 @@
                     <div class="mt-8">
                         <h4 class="font-bold mb-4 flex items-center gap-2">
                             <i class="fa-solid fa-calendar-week text-green-400"></i>
-                            Focus Hebdomadaire
+                            Routine Hebdomadaire Structurée
                         </h4>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div class="glass-card rounded-xl p-4 border-l-2 border-green-500">
-                                <p class="text-xs font-bold text-slate-400 uppercase">Lun/Mar</p>
-                                <p class="text-sm font-semibold text-white mt-1">Maîtrise & Mécanismes</p>
+                            <div class="glass-card rounded-xl p-4 border-l-4 border-green-500">
+                                <p class="text-xs font-bold text-slate-400 uppercase">Lundi</p>
+                                <p class="text-sm font-semibold text-white mt-1">Compréhension des Cours</p>
+                                <p class="text-[10px] text-slate-500 mt-2">Révision approfondie</p>
                             </div>
-                            <div class="glass-card rounded-xl p-4 border-l-2 border-cyan-500">
+                            <div class="glass-card rounded-xl p-4 border-l-4 border-green-500">
+                                <p class="text-xs font-bold text-slate-400 uppercase">Mardi</p>
+                                <p class="text-sm font-semibold text-white mt-1">Mécanismes Scientifiques</p>
+                                <p class="text-[10px] text-slate-500 mt-2">Schémas conceptuels</p>
+                            </div>
+                            <div class="glass-card rounded-xl p-4 border-l-4 border-cyan-500">
                                 <p class="text-xs font-bold text-slate-400 uppercase">Mercredi</p>
-                                <p class="text-sm font-semibold text-white mt-1">Articles Scientifiques</p>
+                                <p class="text-sm font-semibold text-white mt-1">Lecture Scientifique</p>
+                                <p class="text-[10px] text-slate-500 mt-2">1-2 articles scientifiques</p>
                             </div>
-                            <div class="glass-card rounded-xl p-4 border-l-2 border-blue-500">
+                            <div class="glass-card rounded-xl p-4 border-l-4 border-blue-500">
                                 <p class="text-xs font-bold text-slate-400 uppercase">Jeudi</p>
                                 <p class="text-sm font-semibold text-white mt-1">Devoirs & TD</p>
+                                <p class="text-[10px] text-slate-500 mt-2">Exercices, préparation évaluations</p>
                             </div>
-                            <div class="glass-card rounded-xl p-4 border-l-2 border-purple-500">
+                            <div class="glass-card rounded-xl p-4 border-l-4 border-purple-500">
                                 <p class="text-xs font-bold text-slate-400 uppercase">Vendredi</p>
-                                <p class="text-sm font-semibold text-white mt-1">Analyse R & Stats</p>
+                                <p class="text-sm font-semibold text-white mt-1">Analyse de Données : R</p>
+                                <p class="text-[10px] text-slate-500 mt-2">Pratique statistique</p>
                             </div>
-                            <div class="glass-card rounded-xl p-4 border-l-2 border-orange-500 md:col-span-2">
+                            <div class="glass-card rounded-xl p-4 border-l-4 border-orange-500">
                                 <p class="text-xs font-bold text-slate-400 uppercase">Samedi (2-3h)</p>
-                                <p class="text-sm font-semibold text-white mt-1">Stratégie : Synthèse & Fiches Scientifiques</p>
+                                <p class="text-sm font-semibold text-white mt-1">Bloc Stratégique</p>
+                                <p class="text-[10px] text-slate-500 mt-2">Synthèse, fiches, mécanismes</p>
                             </div>
-                            <div class="glass-card rounded-xl p-4 border-l-2 border-slate-500 md:col-span-2">
+                            <div class="glass-card rounded-xl p-4 border-l-4 border-slate-400">
                                 <p class="text-xs font-bold text-slate-400 uppercase">Dimanche (1h)</p>
-                                <p class="text-sm font-semibold text-white mt-1">Planification stratégique J+7</p>
+                                <p class="text-sm font-semibold text-white mt-1">Planification</p>
+                                <p class="text-[10px] text-slate-500 mt-2">Points difficiles, J+7</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Weekly Progression Indicators -->
+                    <div class="mt-8">
+                        <h4 class="font-bold mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-chart-line text-green-400"></i>
+                            Indicateurs de Progression Hebdomadaire
+                        </h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="glass-card rounded-xl p-4 border-t-2 border-green-500">
+                                <p class="text-xs font-bold text-slate-400 uppercase">Cours Revises</p>
+                                <p class="text-2xl font-black text-green-400 mt-2">100%</p>
+                                <p class="text-[10px] text-slate-500 mt-1">Objectif : Tous les cours</p>
+                            </div>
+                            <div class="glass-card rounded-xl p-4 border-t-2 border-cyan-500">
+                                <p class="text-xs font-bold text-slate-400 uppercase">Articles Lus</p>
+                                <p class="text-2xl font-black text-cyan-400 mt-2">2-3</p>
+                                <p class="text-[10px] text-slate-500 mt-1">Objectif : Mercredi</p>
+                            </div>
+                            <div class="glass-card rounded-xl p-4 border-t-2 border-purple-500">
+                                <p class="text-xs font-bold text-slate-400 uppercase">Heures R & Stats</p>
+                                <p class="text-2xl font-black text-purple-400 mt-2">4-5h</p>
+                                <p class="text-[10px] text-slate-500 mt-1">Objectif : Vendredi</p>
+                            </div>
+                            <div class="glass-card rounded-xl p-4 border-t-2 border-orange-500">
+                                <p class="text-xs font-bold text-slate-400 uppercase">Pages de Notes</p>
+                                <p class="text-2xl font-black text-orange-400 mt-2">10-15</p>
+                                <p class="text-[10px] text-slate-500 mt-1">Objectif : Scientifiques</p>
                             </div>
                         </div>
                     </div>
