@@ -485,6 +485,9 @@ async function toggleFocusTimer() {
 function completeFocusSession() {
     if (!focusRunning && !focusEndTime) return; // Éviter les doubles appels
 
+    // Check badges upon completion of a focus session
+    checkBadges();
+
     clearInterval(focusTimerInterval);
     focusRunning = false;
     focusEndTime = null;
