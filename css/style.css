@@ -36,10 +36,17 @@ body {
     transition: all 0.2s ease;
 }
 
-.nav-item.active {
+.nav-item.active, .mobile-nav-item.active {
     background: rgba(34, 197, 94, 0.2);
     color: #22c55e;
+}
+
+.nav-item.active {
     border-left: 3px solid #22c55e;
+}
+
+.mobile-nav-item.active {
+    background: transparent;
 }
 
 .nav-item:hover {
