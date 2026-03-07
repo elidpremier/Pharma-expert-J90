@@ -202,6 +202,29 @@
                     <div id="heatmap" class="flex flex-wrap gap-1"></div>
                 </div>
 
+                <!-- KPI & Goals -->
+                <div class="glass-panel rounded-2xl p-6 mt-6">
+                    <h3 class="text-lg font-bold mb-6">Indicateurs de Progression Hebdomadaire</h3>
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="glass-card rounded-xl p-4 text-center">
+                            <p class="text-2xl font-black text-green-400">100%</p>
+                            <p class="text-[10px] text-slate-400 uppercase mt-1">Cours Révisés</p>
+                        </div>
+                        <div class="glass-card rounded-xl p-4 text-center">
+                            <p class="text-2xl font-black text-blue-400">2-3</p>
+                            <p class="text-[10px] text-slate-400 uppercase mt-1">Articles Lus</p>
+                        </div>
+                        <div class="glass-card rounded-xl p-4 text-center">
+                            <p class="text-2xl font-black text-purple-400">4-5h</p>
+                            <p class="text-[10px] text-slate-400 uppercase mt-1">Pratique R</p>
+                        </div>
+                        <div class="glass-card rounded-xl p-4 text-center">
+                            <p class="text-2xl font-black text-orange-400">10-15</p>
+                            <p class="text-[10px] text-slate-400 uppercase mt-1">Pages de Notes</p>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Stats & Charts (Merged from Performance) -->
                 <div class="grid md:grid-cols-2 gap-6 mt-6">
                     <div class="glass-panel rounded-2xl p-6">
@@ -255,96 +278,117 @@
             <!-- PLANNING SECTION -->
             <section id="planningSection" class="section hidden">
                 <div class="glass-panel rounded-2xl p-6">
-                    <h3 class="text-lg font-bold mb-4">Emploi du Temps Quotidien</h3>
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-bold">Emploi du Temps Quotidien</h3>
+                        <div class="text-xs font-bold text-green-400 px-3 py-1 bg-green-500/10 rounded-full border border-green-500/20">
+                            Objectif : Chercheur Académique
+                        </div>
+                    </div>
                     
                     <div class="space-y-3">
                         <div class="flex items-center gap-4 p-4 glass-card rounded-xl">
-                            <div class="w-20 text-sm font-mono text-slate-400">06h45 – 07h00</div>
+                            <div class="w-20 text-sm font-mono text-slate-400">06h00</div>
                             <div class="flex-1">
-                                <p class="font-semibold text-white">Réveil & préparation</p>
-                                <p class="text-xs text-slate-400">Toilette, Hydratation, Aucun écran</p>
+                                <p class="font-semibold text-white">Réveil & Focus</p>
+                                <p class="text-xs text-slate-400">Hydratation, Préparation, Zéro écran</p>
                             </div>
-                            <i class="fa-solid fa-clock text-slate-500"></i>
+                            <i class="fa-solid fa-sun text-orange-400"></i>
                         </div>
 
                         <div class="flex items-center gap-4 p-4 glass-card rounded-xl border-l-4 border-yellow-500">
-                            <div class="w-20 text-sm font-mono text-slate-400">7h00 - 7h25</div>
+                            <div class="w-20 text-sm font-mono text-slate-400">06h15</div>
                             <div class="flex-1">
-                                <p class="font-semibold text-white">Micro-travail (25 min)</p>
-                                <p class="text-xs text-slate-400">Relire les notes, Préparer le cours, Réviser un point clé</p>
+                                <p class="font-semibold text-white">Prélecture Scientifique (30 min)</p>
+                                <p class="text-xs text-slate-400">Titres, concepts, mots-clés (dissolution, formulation...)</p>
                             </div>
-                            <i class="fa-solid fa-bolt text-yellow-400"></i>
+                            <i class="fa-solid fa-book-open-reader text-yellow-400"></i>
+                        </div>
+
+                        <div class="flex items-center gap-4 p-4 glass-card rounded-xl border-l-4 border-yellow-500">
+                            <div class="w-20 text-sm font-mono text-slate-400">06h45</div>
+                            <div class="flex-1">
+                                <p class="font-semibold text-white">Révision J-1 (30 min)</p>
+                                <p class="text-xs text-slate-400">Mini fiche synthèse, correction incompréhensions</p>
+                            </div>
+                            <i class="fa-solid fa-rotate-left text-yellow-500"></i>
                         </div>
 
                         <div class="flex items-center gap-4 p-4 glass-card rounded-xl border-l-4 border-blue-500">
-                            <div class="w-20 text-sm font-mono text-slate-400">8h00 - 13h00</div>
+                            <div class="w-20 text-sm font-mono text-slate-400">08h00 – 13h00</div>
                             <div class="flex-1">
-                                <p class="font-semibold text-white">Cours</p>
-                                <p class="text-xs text-slate-400">Biopharmacie / Ingénierie</p>
+                                <p class="font-semibold text-white">Cours Master (Prise de notes active)</p>
+                                <p class="text-xs text-slate-400">Galénique, Biopharma, Ingénierie. Pourquoi ce phénomène ?</p>
                             </div>
                             <i class="fa-solid fa-graduation-cap text-blue-400"></i>
                         </div>
 
-                        <div class="flex items-center gap-4 p-4 glass-card rounded-xl">
-                            <div class="w-20 text-sm font-mono text-slate-400">13h00 - 13h30</div>
+                        <div class="flex items-center gap-4 p-4 glass-card rounded-xl border-l-4 border-green-500">
+                            <div class="w-20 text-sm font-mono text-slate-400">14h30 – 16h00</div>
                             <div class="flex-1">
-                                <p class="font-semibold text-white">Pause Déjeuner</p>
+                                <p class="font-semibold text-white">Bloc Principal : Apprentissage (1h30)</p>
+                                <p class="text-xs text-slate-400">Compréhension scientifique & Reconstruction active (mémoire)</p>
                             </div>
-                            <i class="fa-solid fa-utensils text-slate-500"></i>
+                            <i class="fa-solid fa-brain text-green-400"></i>
                         </div>
 
-                        <div class="flex items-center gap-4 p-4 glass-card rounded-xl border-l-4 border-green-500">
-                            <div class="w-20 text-sm font-mono text-slate-400">18h30 - 19h30</div>
+                        <div class="flex items-center gap-4 p-4 glass-card rounded-xl border-l-4 border-cyan-500">
+                            <div class="w-20 text-sm font-mono text-slate-400">16h30 – 17h30</div>
                             <div class="flex-1">
-                                <p class="font-semibold text-white">Session Pharmacie</p>
-                                <p class="text-xs text-slate-400">Revoir cours du jour, Résumer, Approfondir, Faire liens pratiques</p>
+                                <p class="font-semibold text-white">Approfondissement (1h)</p>
+                                <p class="text-xs text-slate-400">Articles scientifiques, Ouvrages, Modèles biopharma</p>
                             </div>
-                            <i class="fa-solid fa-flask text-green-400"></i>
+                            <i class="fa-solid fa-microscope text-cyan-400"></i>
                         </div>
 
                         <div class="flex items-center gap-4 p-4 glass-card rounded-xl border-l-4 border-purple-500">
-                            <div class="w-20 text-sm font-mono text-slate-400">19h30 - 20h00</div>
+                            <div class="w-20 text-sm font-mono text-slate-400">20h00 – 21h00</div>
                             <div class="flex-1">
-                                <p class="font-semibold text-white">Compétences Bonus</p>
-                                <p class="text-xs text-slate-400">Data, IA, Outils, Mini-projets</p>
+                                <p class="font-semibold text-white">Analyse de Données : R (1h)</p>
+                                <p class="text-xs text-slate-400">Stats, Régression, ANOVA reliés au pharma</p>
                             </div>
-                            <i class="fa-solid fa-plus text-purple-400"></i>
+                            <i class="fa-solid fa-code text-purple-400"></i>
                         </div>
 
                         <div class="flex items-center gap-4 p-4 glass-card rounded-xl">
-                            <div class="w-20 text-sm font-mono text-slate-400">20h00</div>
+                            <div class="w-20 text-sm font-mono text-slate-400">21h00</div>
                             <div class="flex-1">
-                                <p class="font-semibold text-white">Fin de journée</p>
-                                <p class="text-xs text-slate-400">Temps libre autorisé</p>
+                                <p class="font-semibold text-white">Organisation & Planification</p>
+                                <p class="text-xs text-slate-400">Classement notes, Fichiers, J+1</p>
                             </div>
-                            <i class="fa-solid fa-check text-slate-500"></i>
+                            <i class="fa-solid fa-list-check text-slate-500"></i>
                         </div>
                     </div>
 
-                    <!-- Special Days -->
-                    <div class="mt-6">
-                        <h4 class="font-bold mb-3">Jours Spéciaux</h4>
-                        <div class="grid md:grid-cols-3 gap-4">
-                            <div class="glass-card rounded-xl p-4 border border-orange-500/30">
-                                <div class="flex items-center gap-2 mb-2">
-                                    <i class="fa-solid fa-file-pen text-orange-400"></i>
-                                    <p class="font-semibold">Jeudi</p>
-                                </div>
-                                <p class="text-sm text-slate-400">Devoir spécial à rendre</p>
+                    <!-- Weekly Routine -->
+                    <div class="mt-8">
+                        <h4 class="font-bold mb-4 flex items-center gap-2">
+                            <i class="fa-solid fa-calendar-week text-green-400"></i>
+                            Focus Hebdomadaire
+                        </h4>
+                        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="glass-card rounded-xl p-4 border-l-2 border-green-500">
+                                <p class="text-xs font-bold text-slate-400 uppercase">Lun/Mar</p>
+                                <p class="text-sm font-semibold text-white mt-1">Maîtrise & Mécanismes</p>
                             </div>
-                            <div class="glass-card rounded-xl p-4 border border-green-500/30">
-                                <div class="flex items-center gap-2 mb-2">
-                                    <i class="fa-solid fa-person-walking text-green-400"></i>
-                                    <p class="font-semibold">Samedi</p>
-                                </div>
-                                <p class="text-sm text-slate-400">OFF – Repos complet</p>
+                            <div class="glass-card rounded-xl p-4 border-l-2 border-cyan-500">
+                                <p class="text-xs font-bold text-slate-400 uppercase">Mercredi</p>
+                                <p class="text-sm font-semibold text-white mt-1">Articles Scientifiques</p>
                             </div>
-                            <div class="glass-card rounded-xl p-4 border border-blue-500/30">
-                                <div class="flex items-center gap-2 mb-2">
-                                    <i class="fa-solid fa-brain text-blue-400"></i>
-                                    <p class="font-semibold">Dimanche</p>
-                                </div>
-                                <p class="text-sm text-slate-400">Stratégique – Planning semaine</p>
+                            <div class="glass-card rounded-xl p-4 border-l-2 border-blue-500">
+                                <p class="text-xs font-bold text-slate-400 uppercase">Jeudi</p>
+                                <p class="text-sm font-semibold text-white mt-1">Devoirs & TD</p>
+                            </div>
+                            <div class="glass-card rounded-xl p-4 border-l-2 border-purple-500">
+                                <p class="text-xs font-bold text-slate-400 uppercase">Vendredi</p>
+                                <p class="text-sm font-semibold text-white mt-1">Analyse R & Stats</p>
+                            </div>
+                            <div class="glass-card rounded-xl p-4 border-l-2 border-orange-500 md:col-span-2">
+                                <p class="text-xs font-bold text-slate-400 uppercase">Samedi (2-3h)</p>
+                                <p class="text-sm font-semibold text-white mt-1">Stratégie : Synthèse & Fiches Scientifiques</p>
+                            </div>
+                            <div class="glass-card rounded-xl p-4 border-l-2 border-slate-500 md:col-span-2">
+                                <p class="text-xs font-bold text-slate-400 uppercase">Dimanche (1h)</p>
+                                <p class="text-sm font-semibold text-white mt-1">Planification stratégique J+7</p>
                             </div>
                         </div>
                     </div>
