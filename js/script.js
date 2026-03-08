@@ -18,16 +18,16 @@ let appState = {
 };
 
 const ACADEMIC_PLANNING = [
-    { start: "06:00", end: "06:15", title: "Réveil & Hydratation", desc: "Hydratation, Préparation, Éviter le téléphone", icon: "fa-sun", color: "orange" },
-    { start: "06:15", end: "06:45", title: "Prélecture Scientifique", desc: "Titres, concepts, mots-clés du cours", icon: "fa-book-open-reader", color: "yellow" },
-    { start: "06:45", end: "07:15", title: "Révision J-1", desc: "Mini fiche synthèse, correction concepts", icon: "fa-rotate-left", color: "yellow" },
-    { start: "07:15", end: "07:40", title: "Préparation Université", desc: "Transport, matériel, concentration", icon: "fa-briefcase", color: "orange" },
-    { start: "08:00", end: "13:00", title: "Cours Master", desc: "Prise de notes scientifique active", icon: "fa-graduation-cap", color: "blue" },
-    { start: "14:30", end: "16:00", title: "Bloc Principal : Apprentissage", desc: "Révision → Compréhension → Reconstruction", icon: "fa-brain", color: "green" },
-    { start: "16:00", end: "16:30", title: "Pause Repos", desc: "Repos complet et recharge", icon: "fa-leaf", color: "slate" },
-    { start: "16:30", end: "17:30", title: "Approfondissement Scientifique", desc: "Articles, Ouvrages, Modèles biopharmaceutiques", icon: "fa-microscope", color: "cyan" },
-    { start: "20:00", end: "21:00", title: "Analyse de Données : R", desc: "Manipulation, Visualisation, Régression, ANOVA", icon: "fa-code", color: "purple" },
-    { start: "21:00", end: "21:20", title: "Organisation & Planification", desc: "Classement notes, organisation fichiers, J+1", icon: "fa-list-check", color: "slate" }
+    { start: "06:00", end: "06:15", title: "Réveil & Hydratation", desc: "Hydratation, Préparation, Éviter le téléphone", icon: "fa-sun", color: "orange", duration: 15 },
+    { start: "06:15", end: "06:45", title: "Prélecture Scientifique", desc: "Titres, concepts, mots-clés du cours", icon: "fa-book-open-reader", color: "yellow", duration: 30 },
+    { start: "06:45", end: "07:15", title: "Révision J-1", desc: "Mini fiche synthèse, correction concepts", icon: "fa-rotate-left", color: "yellow", duration: 30 },
+    { start: "07:15", end: "07:40", title: "Préparation Université", desc: "Transport, matériel, concentration", icon: "fa-briefcase", color: "orange", duration: 25 },
+    { start: "08:00", end: "13:00", title: "Cours Master", desc: "Prise de notes scientifique active", icon: "fa-graduation-cap", color: "blue", duration: 300 },
+    { start: "14:30", end: "16:00", title: "Bloc Principal : Apprentissage", desc: "Révision → Compréhension → Reconstruction", icon: "fa-brain", color: "green", duration: 90 },
+    { start: "16:00", end: "16:30", title: "Pause Repos", desc: "Repos complet et recharge", icon: "fa-leaf", color: "slate", duration: 30 },
+    { start: "16:30", end: "17:30", title: "Approfondissement Scientifique", desc: "Articles, Ouvrages, Modèles biopharmaceutiques", icon: "fa-microscope", color: "cyan", duration: 60 },
+    { start: "20:00", end: "21:00", title: "Analyse de Données : R", desc: "Manipulation, Visualisation, Régression, ANOVA", icon: "fa-code", color: "purple", duration: 60 },
+    { start: "21:00", end: "21:20", title: "Organisation & Planification", desc: "Classement notes, organisation fichiers, J+1", icon: "fa-list-check", color: "slate", duration: 20 }
 ];
 
 let focusTimerInterval = null;
@@ -40,6 +40,10 @@ let wakeLock = null; // Pour l'API Screen Wake Lock
 let weeklyChartInstance = null;
 let disciplineChartInstance = null;
 let timeChartInstance = null;
+
+// Session Timer Management
+let activeSessionTimer = null; // { taskIndex, interval, timeLeft, endTime }
+let sessionTimers = {}; // { taskIndex: { totalTime, elapsedTime, isRunning } }
 
 // PWA Install Prompt
 let deferredPrompt = null;
@@ -301,9 +305,10 @@ function renderPlanningTasks() {
             slate: 'text-slate-400'
         };
 
+        const isTimerActive = activeSessionTimer?.taskIndex === index;
         return `
-            <div onclick="togglePlanningTask(${index})" class="flex items-center gap-4 p-4 glass-card rounded-xl border-l-4 ${borderColors[task.color]} cursor-pointer transition-all hover:translate-x-1 ${isCompleted ? 'opacity-50 grayscale' : ''}">
-                <div class="w-6 h-6 rounded-full border-2 ${isCompleted ? 'bg-green-500 border-green-500' : 'border-slate-600'} flex items-center justify-center shrink-0">
+            <div class="flex items-center gap-4 p-4 glass-card rounded-xl border-l-4 ${borderColors[task.color]} transition-all ${isCompleted ? 'opacity-50 grayscale' : ''} ${isTimerActive ? 'ring-2 ring-green-400' : ''}">
+                <div class="w-6 h-6 rounded-full border-2 ${isCompleted ? 'bg-green-500 border-green-500' : 'border-slate-600'} flex items-center justify-center shrink-0 cursor-pointer hover:bg-green-500/20" onclick="togglePlanningTask(${index})">
                     ${isCompleted ? '<i class="fa-solid fa-check text-white text-[10px]"></i>' : ''}
                 </div>
                 <div class="w-20 text-sm font-mono text-slate-400 shrink-0">${task.start}</div>
@@ -311,7 +316,25 @@ function renderPlanningTasks() {
                     <p class="font-semibold text-white ${isCompleted ? 'line-through' : ''}">${task.title}</p>
                     <p class="text-[10px] text-slate-400">${task.desc}</p>
                 </div>
-                <i class="fa-solid ${task.icon} ${iconColors[task.color]}"></i>
+                <div class="flex items-center gap-2">
+                    ${isTimerActive ? `
+                        <div class="text-right">
+                            <div id="timer-${index}" class="text-lg font-mono font-bold text-green-400">00:00</div>
+                            <p class="text-[10px] text-slate-400">${task.duration} min</p>
+                        </div>
+                        <button onclick="event.stopPropagation(); pauseSessionTimer()" class="p-2 text-slate-300 hover:text-white transition">
+                            <i class="fa-solid fa-pause text-sm"></i>
+                        </button>
+                        <button onclick="event.stopPropagation(); stopSessionTimer()" class="p-2 text-slate-300 hover:text-red-400 transition">
+                            <i class="fa-solid fa-stop text-sm"></i>
+                        </button>
+                    ` : `
+                        <button onclick="event.stopPropagation(); startSessionTimer(${index})" class="px-3 py-1 text-xs font-bold text-white bg-green-500/20 border border-green-500/30 rounded-lg hover:bg-green-500/30 transition">
+                            <i class="fa-solid fa-play mr-1"></i>Minuteur
+                        </button>
+                    `}
+                    <i class="fa-solid ${task.icon} ${iconColors[task.color]}"></i>
+                </div>
             </div>
         `;
     }).join('');
@@ -1021,6 +1044,124 @@ async function generateWeeklyReport() {
     doc.text(`XP : ${appState.xp}`, 20, 50);
     
     doc.save(`pharma-expert-j${dayNum}.pdf`);
+}
+
+// ==================== SESSION TIMER FUNCTIONS ====================
+function startSessionTimer(taskIndex) {
+    const task = ACADEMIC_PLANNING[taskIndex];
+    if (!task) return;
+
+    if (activeSessionTimer) {
+        stopSessionTimer();
+    }
+
+    const durationSeconds = task.duration * 60;
+    const endTime = Date.now() + durationSeconds * 1000;
+
+    activeSessionTimer = {
+        taskIndex,
+        timeLeft: durationSeconds,
+        endTime,
+        interval: null
+    };
+
+    if (!sessionTimers[taskIndex]) {
+        sessionTimers[taskIndex] = {
+            totalTime: durationSeconds,
+            elapsedTime: 0,
+            isRunning: true
+        };
+    } else {
+        sessionTimers[taskIndex].isRunning = true;
+    }
+
+    requestWakeLock();
+
+    activeSessionTimer.interval = setInterval(() => {
+        const now = Date.now();
+        activeSessionTimer.timeLeft = Math.max(0, Math.round((activeSessionTimer.endTime - now) / 1000));
+
+        if (activeSessionTimer.timeLeft > 0) {
+            updateSessionTimerDisplay(taskIndex);
+        } else {
+            completeSessionTimer(taskIndex);
+        }
+    }, 1000);
+
+    updateSessionTimerDisplay(taskIndex);
+    showNotification(`Minuteur demarré: ${task.title} (${task.duration} min)`);
+    renderPlanningTasks();
+}
+
+function pauseSessionTimer() {
+    if (!activeSessionTimer) return;
+
+    clearInterval(activeSessionTimer.interval);
+    sessionTimers[activeSessionTimer.taskIndex].isRunning = false;
+    releaseWakeLock();
+    updateSessionTimerDisplay(activeSessionTimer.taskIndex);
+    showNotification('Minuteur en pause');
+    renderPlanningTasks();
+}
+
+function stopSessionTimer() {
+    if (!activeSessionTimer) return;
+
+    clearInterval(activeSessionTimer.interval);
+    const taskIndex = activeSessionTimer.taskIndex;
+    sessionTimers[taskIndex].isRunning = false;
+    releaseWakeLock();
+    showNotification('Minuteur arrete');
+    activeSessionTimer = null;
+    renderPlanningTasks();
+}
+
+function completeSessionTimer(taskIndex) {
+    clearInterval(activeSessionTimer.interval);
+    sessionTimers[taskIndex].isRunning = false;
+    releaseWakeLock();
+
+    const task = ACADEMIC_PLANNING[taskIndex];
+    addXP(15);
+    saveData();
+    updateUI();
+
+    if ("Notification" in window && Notification.permission === "granted") {
+        new Notification("Pharma Expert", {
+            body: `Session terminee: ${task.title} ! +15 XP`,
+            icon: "assets/icons/icon-192.png"
+        });
+    }
+
+    try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const oscillator = audioCtx.createOscillator();
+        oscillator.type = 'sine';
+        oscillator.frequency.setValueAtTime(440, audioCtx.currentTime);
+        oscillator.connect(audioCtx.destination);
+        oscillator.start();
+        oscillator.stop(audioCtx.currentTime + 0.5);
+    } catch(e) {}
+
+    showNotification(`Session terminee: ${task.title} ! +15 XP`);
+    activeSessionTimer = null;
+    renderPlanningTasks();
+}
+
+function updateSessionTimerDisplay(taskIndex) {
+    const timerElement = document.getElementById(`timer-${taskIndex}`);
+    if (!timerElement) return;
+
+    const timeLeft = activeSessionTimer?.timeLeft || 0;
+    const minutes = Math.floor(timeLeft / 60);
+    const seconds = timeLeft % 60;
+
+    timerElement.innerText = `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+}
+
+function getSessionTimerStatus(taskIndex) {
+    if (!sessionTimers[taskIndex]) return null;
+    return sessionTimers[taskIndex];
 }
 
 // ==================== EVENT LISTENERS ====================
