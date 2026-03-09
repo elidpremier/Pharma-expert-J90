@@ -162,7 +162,23 @@ function saveData() {
 function loadData() {
     const saved = localStorage.getItem('pharmaChallenge_v2');
     if (saved) {
-        appState = JSON.parse(saved);
+        const loadedData = JSON.parse(saved);
+        // Merge loaded data with default state to preserve new properties
+        appState = {
+            startDate: loadedData.startDate ?? appState.startDate,
+            contractSigned: loadedData.contractSigned ?? appState.contractSigned,
+            contractName: loadedData.contractName ?? appState.contractName,
+            contractDate: loadedData.contractDate ?? appState.contractDate,
+            dailyLogs: loadedData.dailyLogs ?? appState.dailyLogs,
+            goals: loadedData.goals ?? appState.goals,
+            sessions: loadedData.sessions ?? appState.sessions,
+            badges: loadedData.badges ?? appState.badges,
+            level: loadedData.level ?? appState.level,
+            xp: loadedData.xp ?? appState.xp,
+            weeklyEvaluations: loadedData.weeklyEvaluations ?? appState.weeklyEvaluations,
+            requirements: loadedData.requirements ?? appState.requirements,
+            dailyTasks: loadedData.dailyTasks ?? appState.dailyTasks
+        };
     }
 }
 
