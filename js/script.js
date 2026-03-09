@@ -60,12 +60,22 @@ function init() {
     document.getElementById('contractDate').value = new Date().toISOString().split('T')[0];
     
     updateUI();
-    initCharts();
-    renderBadges();
-    renderGoals();
-    renderPlanningTasks();
-    renderJournalHistory();
-    renderHeatmap();
+
+    // Robust initialization: ensure one failure doesn't block the whole app
+    const safeInit = (fn, name) => {
+        try {
+            fn();
+        } catch (e) {
+            console.error(`Error during ${name}:`, e);
+        }
+    };
+
+    safeInit(initCharts, 'initCharts');
+    safeInit(renderBadges, 'renderBadges');
+    safeInit(renderGoals, 'renderGoals');
+    safeInit(renderPlanningTasks, 'renderPlanningTasks');
+    safeInit(renderJournalHistory, 'renderJournalHistory');
+    safeInit(renderHeatmap, 'renderHeatmap');
     
     if (appState.contractSigned) {
         showSignedContract();
