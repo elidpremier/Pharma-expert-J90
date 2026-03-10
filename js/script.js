@@ -333,35 +333,34 @@ function renderPlanningTasks() {
 
         const isTimerActive = activeSessionTimer?.taskIndex === index;
         return `
-            <div class="flex items-center gap-3 p-4 glass-card rounded-xl border-l-4 ${borderColors[task.color]} transition-all hover:shadow-lg cursor-pointer ${isCompleted ? 'opacity-50 grayscale' : ''} ${isTimerActive ? 'ring-2 ring-green-400' : ''}" onclick="togglePlanningTask(${index})">
-                <div class="w-8 h-8 rounded-full border-2 ${isCompleted ? 'bg-green-500 border-green-500' : 'border-slate-600'} flex items-center justify-center shrink-0 flex-none transition-all hover:scale-110">
-                    ${isCompleted ? '<i class="fa-solid fa-check text-white text-sm"></i>' : '<i class="fa-solid fa-circle text-slate-400 text-xs"></i>'}
+            <div class="flex items-center gap-1 p-2 glass-card rounded-xl border-l-4 ${borderColors[task.color]} transition-all hover:shadow-lg cursor-pointer ${isCompleted ? 'opacity-50 grayscale' : ''} ${isTimerActive ? 'ring-2 ring-green-400' : ''}" onclick="togglePlanningTask(${index})">
+                <div class="w-7 h-7 rounded-full border-2 ${isCompleted ? 'bg-green-500 border-green-500' : 'border-slate-600'} flex items-center justify-center shrink-0 flex-none transition-all hover:scale-110">
+                    ${isCompleted ? '<i class="fa-solid fa-check text-white text-xs"></i>' : '<i class="fa-solid fa-circle text-slate-400 text-[10px]"></i>'}
                 </div>
-                <div class="w-24 text-sm font-mono text-slate-400 shrink-0 flex-none">
-                    <span class="text-xs uppercase font-bold">${task.start}</span>
+                <div class="text-xs font-mono text-slate-400 shrink-0 flex-none">
+                    <span class="font-bold">${task.start}</span>
                 </div>
                 <div class="flex-1 min-w-0">
-                    <p class="font-semibold text-white ${isCompleted ? 'line-through' : ''} truncate">${task.title}</p>
-                    <p class="text-[10px] text-slate-400 line-clamp-1">${task.desc}</p>
+                    <p class="font-semibold text-white text-xs sm:text-sm ${isCompleted ? 'line-through' : ''} whitespace-nowrap overflow-hidden text-ellipsis">${task.title}</p>
+                    <p class="text-[10px] text-slate-400 line-clamp-1 hidden sm:block">${task.desc}</p>
                 </div>
-                <div class="flex items-center gap-2 flex-none">
+                <div class="flex items-center gap-1 flex-none">
                     ${isTimerActive ? `
-                        <div class="text-right bg-green-500/10 px-3 py-2 rounded-lg">
-                            <div id="timer-${index}" class="text-base font-mono font-bold text-green-400">00:00</div>
-                            <p class="text-[10px] text-slate-400">${task.duration} min</p>
+                        <div class="text-right bg-green-500/10 px-2 py-1 rounded-lg">
+                            <div id="timer-${index}" class="text-xs font-mono font-bold text-green-400 leading-tight">00:00</div>
+                            <p class="text-[9px] text-slate-400 leading-tight">${task.duration}m</p>
                         </div>
-                        <button onclick="event.stopPropagation(); pauseSessionTimer()" class="p-2 text-slate-300 hover:text-yellow-400 transition hover:bg-slate-700/50 rounded-lg" title="Pause">
-                            <i class="fa-solid fa-pause text-sm"></i>
+                        <button onclick="event.stopPropagation(); pauseSessionTimer()" class="p-1.5 text-slate-300 hover:text-yellow-400 transition hover:bg-slate-700/50 rounded" title="Pause">
+                            <i class="fa-solid fa-pause text-xs"></i>
                         </button>
-                        <button onclick="event.stopPropagation(); stopSessionTimer()" class="p-2 text-slate-300 hover:text-red-400 transition hover:bg-slate-700/50 rounded-lg" title="Arreter">
-                            <i class="fa-solid fa-stop text-sm"></i>
+                        <button onclick="event.stopPropagation(); stopSessionTimer()" class="p-1.5 text-slate-300 hover:text-red-400 transition hover:bg-slate-700/50 rounded" title="Arreter">
+                            <i class="fa-solid fa-stop text-xs"></i>
                         </button>
                     ` : `
-                        <button onclick="event.stopPropagation(); startSessionTimer(${index})" class="px-3 py-2 text-xs font-bold text-white bg-green-500/20 border border-green-500/30 rounded-lg hover:bg-green-500/40 transition" title="Demarrer minuteur">
-                            <i class="fa-solid fa-play mr-1"></i><span class="hidden sm:inline">Minuteur</span>
+                        <button onclick="event.stopPropagation(); startSessionTimer(${index})" class="px-2 py-1 text-xs font-bold text-white bg-green-500/20 border border-green-500/30 rounded hover:bg-green-500/40 transition whitespace-nowrap" title="Demarrer minuteur">
+                            <i class="fa-solid fa-play text-xs"></i><span class="hidden sm:inline ml-1">Minuteur</span>
                         </button>
                     `}
-                    <i class="fa-solid ${task.icon} ${iconColors[task.color]} text-lg flex-none"></i>
                 </div>
             </div>
         `;
